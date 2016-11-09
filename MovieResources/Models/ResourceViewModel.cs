@@ -86,7 +86,8 @@ namespace MovieResources.Models
             Note = res.res_Note;
             if (!string.IsNullOrEmpty(res.res_User) && !string.IsNullOrWhiteSpace(res.res_User))
             {
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
 
                 User = res.res_User;
                 Account = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Id == res.res_User).user_Account;

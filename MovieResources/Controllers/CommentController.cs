@@ -25,7 +25,8 @@ namespace MovieResources.Controllers
         [Authorize]
         public ActionResult Delete(string id, string returnurl)
         {
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             if (CommentManager.Exist(id))
             {
                 return RedirectToAction("NotFound", "Error");

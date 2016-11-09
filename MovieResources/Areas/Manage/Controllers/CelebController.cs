@@ -10,12 +10,13 @@ namespace MovieResources.Areas.Manage.Controllers
 {
     public class CelebController : Controller
     {
-        MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
 
         #region 影人管理首页
         //
         // GET: /Manage/Celeb/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Index(string search, int page = 1)
         {
             var query = from c in _db.tbl_Celebrity
@@ -38,7 +39,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Celeb/IndexAudit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult IndexAudit(string search, int page = 1)
         {
             var query = from m in _db.tbl_Celebrity
@@ -65,7 +66,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 审核用户上传影人
         //
         // GET: /Manage/Celeb/Audit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Audit(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -78,7 +79,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Celeb/Reject/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(string id, string returnurl)
         {
             if (!CelebManager.Exist(id))
@@ -94,7 +95,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Celeb/Reject/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(RejectViewModel model, string returnurl)
         {
             if (model.Note == "0")
@@ -117,7 +118,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 创建影人
         //
         // GET: /Manage/Celeb/Create/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Create()
         {
             return View();
@@ -126,7 +127,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Celeb/Create/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateCelebViewModel celeb)
         {
@@ -155,7 +156,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Celeb/CreateCeleb/
-        [AdminFilter]
+        [Administrator]
         public ActionResult CreateCeleb()
         {
             return View();
@@ -164,7 +165,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Celeb/CreateCeleb/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCeleb(ManageCelebViewModel celeb, System.Web.HttpPostedFileBase file)
         {
@@ -186,7 +187,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 修改影人
         //
         // GET: /Manage/Celeb/Edit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Edit(string id)
         {
             if (!CelebManager.Exist(id))
@@ -201,7 +202,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Celeb/Edit/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageCelebViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -229,7 +230,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 删除影人
         //
         // GET: /Manage/Celeb/Delete/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Delete(string id)
         {
             if (!CelebManager.Exist(id))
@@ -244,7 +245,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // Post: /Manage/Celeb/Delete/
         [HttpPost, ActionName("Delete")]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id)
         {
@@ -266,7 +267,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 更新影人
         //
         // GET: /Manage/Celeb/Refresh/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Refresh(string id)
         {
             if (!CelebManager.Exist(id))
@@ -299,7 +300,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // Post: /Manage/Celeb/Refresh/
         [HttpPost, ActionName("Refresh")]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult RefreshConfirm(string id)
         {

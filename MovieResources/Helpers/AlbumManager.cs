@@ -15,7 +15,8 @@ namespace MovieResources.Helpers
         /// <returns>专辑id</returns>
         public static string Create(ManageAlbumViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Album album = new tbl_Album()
                 {
@@ -34,9 +35,11 @@ namespace MovieResources.Helpers
                 album.album_Item = "[]";
                 album.album_Visit = 0;
 
-                _db.tbl_Album.InsertOnSubmit(album);
-                _db.SubmitChanges();
-                _db.SetAlbumTime(guid);
+                //_db.tbl_Album.InsertOnSubmit(album);
+                //_db.SubmitChanges();
+                //_db.SetAlbumTime(guid);
+                _db.tbl_Album.Add(album);
+                _db.SaveChanges();
 
                 return album.album_Id;
             }
@@ -48,7 +51,8 @@ namespace MovieResources.Helpers
         /// <param name="model"></param>
         public static void Edit(ManageAlbumViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var album = _db.tbl_Album.SingleOrDefault(a => a.album_Id == model.Id);
 
@@ -59,8 +63,9 @@ namespace MovieResources.Helpers
                     album.album_Cover = model.Cover;
                 }
 
-                _db.SubmitChanges();
-                _db.AlterAlbumAlterTime(album.album_Id);
+                //_db.SubmitChanges();
+                //_db.AlterAlbumAlterTime(album.album_Id);
+                _db.SaveChanges();
             }
         }
 
@@ -70,12 +75,15 @@ namespace MovieResources.Helpers
         /// <param name="id">专辑id</param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var album = _db.tbl_Album.SingleOrDefault(a => a.album_Id == id);
 
-                _db.tbl_Album.DeleteOnSubmit(album);
-                _db.SubmitChanges();
+                //_db.tbl_Album.DeleteOnSubmit(album);
+                _db.tbl_Album.Remove(album);
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -86,7 +94,8 @@ namespace MovieResources.Helpers
         /// <param name="model">添加的项目</param>
         public static void Add(string id, AlbumItemViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var album = _db.tbl_Album.SingleOrDefault(a => a.album_Id == id);
                 if (_db.tbl_Movie.SingleOrDefault(m => m.movie_Id == model.Movie) == null)
@@ -98,7 +107,8 @@ namespace MovieResources.Helpers
                 all.Add(model);
 
                 album.album_Item = JsonConvert.SerializeObject(all);
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -109,7 +119,8 @@ namespace MovieResources.Helpers
         /// <param name="movie">电影id</param>
         public static void Minus(string id, string movie)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var album = _db.tbl_Album.SingleOrDefault(a => a.album_Id == id);
 
@@ -117,7 +128,8 @@ namespace MovieResources.Helpers
                 all = all.SkipWhile(m => m.Movie == movie).ToList();
 
                 album.album_Item = JsonConvert.SerializeObject(all);
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -128,7 +140,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Album.SingleOrDefault(p => p.album_Id == id) == null)
                 {
@@ -147,11 +160,13 @@ namespace MovieResources.Helpers
         /// <param name="id">专辑id</param>
         public static void Visit(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Album album = _db.tbl_Album.SingleOrDefault(a => a.album_Id == id);
                 album.album_Visit++;
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
     }

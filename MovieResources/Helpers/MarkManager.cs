@@ -14,7 +14,8 @@ namespace MovieResources.Helpers
         /// <returns>标记过true，否则false</returns>
         public static bool Validate(string tagret, string user, int type)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var marks = from m in _db.tbl_Mark
                             where m.mark_Type == type
@@ -39,7 +40,8 @@ namespace MovieResources.Helpers
         /// <param name="type">1想看电影，2看过电影，3喜欢电影，4收藏影人，5赞资源，6同求资源，7关注专辑</param>
         public static void Create(string targrt, string user, int type)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (MarkManager.Validate(targrt, user, type))
                 {
@@ -56,9 +58,11 @@ namespace MovieResources.Helpers
                 mark.mark_User = user;
                 mark.mark_Type = (byte)type;
 
-                _db.tbl_Mark.InsertOnSubmit(mark);
-                _db.SubmitChanges();
-                _db.SetMarkMovieTime(mark.mark_Id);
+                //_db.tbl_Mark.InsertOnSubmit(mark);
+                //_db.SubmitChanges();
+                //_db.SetMarkMovieTime(mark.mark_Id);
+                _db.tbl_Mark.Add(mark);
+                _db.SaveChanges();
             }
         }
 
@@ -70,13 +74,16 @@ namespace MovieResources.Helpers
         /// <param name="type">1想看电影，2看过电影，3喜欢电影，4收藏影人，5赞资源，6同求资源，7关注专辑</param>
         public static void Cancel(string targrt, string user, int type)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var mark = _db.tbl_Mark.SingleOrDefault(m => m.mark_User == user && m.mark_Target == targrt && m.mark_Type == type);
                 if (mark != null)
                 {
-                    _db.tbl_Mark.DeleteOnSubmit(mark);
-                    _db.SubmitChanges();
+                    //_db.tbl_Mark.DeleteOnSubmit(mark);
+                    //_db.SubmitChanges();
+                    _db.tbl_Mark.Remove(mark);
+                    _db.SaveChanges();
                 }
             }
         }
@@ -88,7 +95,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_UserAccount.SingleOrDefault(p => p.user_Id == id) == null)
                 {

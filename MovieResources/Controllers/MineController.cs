@@ -9,7 +9,8 @@ namespace MovieResources.Controllers
 {
     public class MineController : Controller
     {
-        MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
 
         #region 用户主页
         //
@@ -191,7 +192,8 @@ namespace MovieResources.Controllers
             var result = AccountManager.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                AccountManager.SignIn(User.Identity.Name);
+                //AccountManager.SignIn(User.Identity.Name);
+                AccountManager.SignInWithCookie();
             }
             ModelState.AddModelError("", result.Error);
             return View(model);

@@ -140,7 +140,8 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static string CreateJson(JObject json, string mappath, string create)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var createCeleb = new tbl_Celebrity();
                 createCeleb = CelebManager.JsonToCeleb(json, mappath);
@@ -161,9 +162,11 @@ namespace MovieResources.Helpers
                     createCeleb.celeb_Status = 0;
                 }
 
-                _db.tbl_Celebrity.InsertOnSubmit(createCeleb);
-                _db.SubmitChanges();
-                _db.SetCelebTime(guid);
+                //_db.tbl_Celebrity.InsertOnSubmit(createCeleb);
+                //_db.SubmitChanges();
+                //_db.SetCelebTime(guid);
+                _db.tbl_Celebrity.Add(createCeleb);
+                _db.SaveChanges();
 
                 if (!string.IsNullOrEmpty(createCeleb.celeb_DoubanID))
                 {
@@ -181,7 +184,8 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static string CreateCeleb(ManageCelebViewModel celeb)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 string guid;
                 do
@@ -210,9 +214,11 @@ namespace MovieResources.Helpers
                     celeb_Status = celeb.Status,
                     celeb_Avatar = celeb.Avatar == null ? "Celeb_1.jpg" : celeb.Avatar
                 };
-                _db.tbl_Celebrity.InsertOnSubmit(createCeleb);
-                _db.SubmitChanges();
-                _db.SetCelebTime(guid);
+                //_db.tbl_Celebrity.InsertOnSubmit(createCeleb);
+                //_db.SubmitChanges();
+                //_db.SetCelebTime(guid);
+                _db.tbl_Celebrity.Add(createCeleb);
+                _db.SaveChanges();
 
                 return createCeleb.celeb_Id;
             }
@@ -224,12 +230,14 @@ namespace MovieResources.Helpers
         /// <param name="id">影人id</param>
         public static void Audit(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Celebrity celeb = _db.tbl_Celebrity.SingleOrDefault(m => m.celeb_Id == id);
                 celeb.celeb_Status = 2;
 
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -239,12 +247,14 @@ namespace MovieResources.Helpers
         /// <param name="model"></param>
         public static void Reject(RejectViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Celebrity celeb = _db.tbl_Celebrity.SingleOrDefault(m => m.celeb_Id == model.Id);
                 celeb.celeb_Status = 1;
                 celeb.celeb_Note = model.Note;
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -254,7 +264,8 @@ namespace MovieResources.Helpers
         /// <param name="celeb"></param>
         public static void Edit(ManageCelebViewModel celeb)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 bool hasChange = false;
                 var oldCeleb = _db.tbl_Celebrity.SingleOrDefault(p => p.celeb_Id == celeb.Id);
@@ -329,8 +340,9 @@ namespace MovieResources.Helpers
 
                 if (hasChange)
                 {
-                    _db.SubmitChanges();
-                    _db.AlterCelebAlterTime(celeb.Id);
+                    //_db.SubmitChanges();
+                    //_db.AlterCelebAlterTime(celeb.Id);
+                    _db.SaveChanges();
                 }
             }
         }
@@ -341,11 +353,14 @@ namespace MovieResources.Helpers
         /// <param name="id"></param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Celebrity celeb = _db.tbl_Celebrity.SingleOrDefault(s => s.celeb_Id == id);
-                _db.tbl_Celebrity.DeleteOnSubmit(celeb);
-                _db.SubmitChanges();
+                //_db.tbl_Celebrity.DeleteOnSubmit(celeb);
+                //_db.SubmitChanges();
+                _db.tbl_Celebrity.Remove(celeb);
+                _db.SaveChanges();
             }
         }
 
@@ -356,7 +371,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Celebrity.SingleOrDefault(p => p.celeb_Id == id) == null)
                 {

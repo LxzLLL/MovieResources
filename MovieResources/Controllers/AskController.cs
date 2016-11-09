@@ -7,7 +7,9 @@ namespace MovieResources.Controllers
 {
     public class AskController : Controller
     {
-        private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+
+        MRDataEntities _db = new MRDataEntities();
 
         #region 求资源首页
         //

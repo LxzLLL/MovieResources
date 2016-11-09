@@ -35,7 +35,8 @@ namespace MovieResources.Models
             listYear = new List<SelectListItem>();
             listMovies = new List<MovieViewModel>();
 
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var tblGenre = _db.tbl_GenreMovie.ToList();
                 var tblCountry = _db.tbl_Country.ToList();

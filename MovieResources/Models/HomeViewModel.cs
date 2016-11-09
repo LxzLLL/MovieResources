@@ -29,7 +29,8 @@ namespace MovieResources.Models
         public HomeDiscViewModel(tbl_Discovery dis)
         {
             Id = dis.disc_Id;
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             Movie = new MovieViewModel(_db.tbl_Movie.SingleOrDefault(m => m.movie_Id == dis.disc_Movie));
             Image = dis.disc_Image;
             Flag = dis.disc_Flag;

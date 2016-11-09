@@ -15,10 +15,10 @@ namespace MovieResources.Controllers
         [LogonFilter]
         public ActionResult Login(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Mine");
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Index", "Mine");
+            //}
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -34,13 +34,34 @@ namespace MovieResources.Controllers
             {
                 return View(model);
             }
-            var result = AccountManager.PasswordSignIn(model.Account, model.Password);
+            //var result = AccountManager.PasswordSignIn(model.Account, model.Password);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        if (AccountManager.IsAdmin(AccountManager.GetId(model.Account)))
+            //        {
+            //            //return RedirectToAction("Index", "ManageMovie");
+            //            return RedirectToAction("Index", "Movie", new { Area = "Manage" });
+            //        }
+            //        else
+            //        {
+            //            return RedirectToLocal(returnurl);
+            //        }
+            //    case SignInStatus.UndefinedAccount:
+            //        ModelState.AddModelError("", "用户名不存在。");
+            //        return View(model);
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "请检查用户名或密码是否正确。");
+            //        return View(model);
+            //}
+
+            var result = AccountManager.SignInWithPassword(model.Account, model.Password);
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (AccountManager.IsAdmin(AccountManager.GetId(model.Account)))
+                    if (AccountManager.CheckAdmin())
                     {
-                        //return RedirectToAction("Index", "ManageMovie");
                         return RedirectToAction("Index", "Movie", new { Area = "Manage" });
                     }
                     else
@@ -77,21 +98,21 @@ namespace MovieResources.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = AccountManager.Create(model.Account, model.Password);
-                if (result.Succeeded)
-                {
-                    AccountManager.SignIn(model.Account);
+                //var result = AccountManager.Create(model.Account, model.Password);
+                //if (result.Succeeded)
+                //{
+                //    AccountManager.SignIn(model.Account);
 
-                    if (AccountManager.IsAdmin(AccountManager.GetId(User.Identity.Name)))
-                    {
-                        return RedirectToAction("Index", "ManageMovie");
-                    }
-                    else
-                    {
-                        return RedirectToLocal(returnurl);
-                    }
-                }
-                ModelState.AddModelError("", result.Error);
+                //    if (AccountManager.IsAdmin(AccountManager.GetId(User.Identity.Name)))
+                //    {
+                //        return RedirectToAction("Index", "ManageMovie");
+                //    }
+                //    else
+                //    {
+                //        return RedirectToLocal(returnurl);
+                //    }
+                //}
+                //ModelState.AddModelError("", result.Error);
             }
 
             return View(model);
@@ -128,17 +149,17 @@ namespace MovieResources.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = AccountManager.ValidateEmail(model.Account, model.Email);
-                if (result.Succeeded)
-                {
-                    Session["ResetAccount"] = model.Account;
-                    Session["CanReset"] = true;
-                    return RedirectToAction("ResetPassword", "Account");
-                }
-                ModelState.AddModelError("", result.Error);
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    var result = AccountManager.ValidateEmail(model.Account, model.Email);
+            //    if (result.Succeeded)
+            //    {
+            //        Session["ResetAccount"] = model.Account;
+            //        Session["CanReset"] = true;
+            //        return RedirectToAction("ResetPassword", "Account");
+            //    }
+            //    ModelState.AddModelError("", result.Error);
+            //}
 
             return View(model);
         }
@@ -161,18 +182,18 @@ namespace MovieResources.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            model.Account = Session["ResetAccount"].ToString();
-            var result = AccountManager.ResetPassword(model.Account, model.Password);
-            if (result.Succeeded)
-            {
-                Session["CanReset"] = false;
-                return RedirectToAction("Login", "Account");
-            }
-            ModelState.AddModelError("", "重置密码失败，请重试。");
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+            //model.Account = Session["ResetAccount"].ToString();
+            //var result = AccountManager.ResetPassword(model.Account, model.Password);
+            //if (result.Succeeded)
+            //{
+            //    Session["CanReset"] = false;
+            //    return RedirectToAction("Login", "Account");
+            //}
+            //ModelState.AddModelError("", "重置密码失败，请重试。");
             return View();
         }
         #endregion

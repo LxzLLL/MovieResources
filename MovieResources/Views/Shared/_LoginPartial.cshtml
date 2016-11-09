@@ -12,14 +12,15 @@
         }
 </style>
 
-@if (Request.IsAuthenticated)
+@*@if (Request.IsAuthenticated)*@
+@if (MovieResources.Helpers.CookieHepler.HasValue("user"))
 {
     using (Html.BeginForm("LogOff", "Account", new { returnUrl = Request.Url }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
         <ul class="nav navbar-nav">
             <li class="dropdown li-account">
-                <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.GetUserName() !<b class="caret"></b></a>
+                <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown">@*@User.Identity.GetUserName()*@ @HttpContext.Current.Request.Cookies["user"].Value !<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="/Mine/Index/">我的主页</a></li>
                     <li><a href="/Mine/ChangeAvatar/">个人设置</a></li>

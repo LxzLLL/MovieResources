@@ -10,12 +10,13 @@ namespace MovieResources.Areas.Manage.Controllers
 {
     public class MovieController : Controller
     {
-        MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
 
         #region 电影管理首页
         //
         // GET: /Manage/Movie/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Index(string search, int page = 1)
         {
             var query = from m in _db.tbl_Movie
@@ -38,7 +39,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Movie/IndexAudit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult IndexAudit(string search, int page = 1)
         {
             var query = from m in _db.tbl_Movie
@@ -65,7 +66,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 审核用户上传电影
         //
         // GET: /Manage/Movie/Audit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Audit(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -78,7 +79,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Movie/Reject/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -94,7 +95,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Movie/Reject/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(RejectViewModel model, string returnurl)
         {
             if (model.Note == "0")
@@ -117,7 +118,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 创建电影
         //
         // GET: /Manage/Movie/Create/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Create()
         {
             return View();
@@ -126,7 +127,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Movie/Create/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateMovieViewModel movie)
         {
@@ -157,7 +158,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Movie/CreateMovie/
-        [AdminFilter]
+        [Administrator]
         public ActionResult CreateMovie()
         {
             return View();
@@ -166,7 +167,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Movie/CreateMovie/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult CreateMovie(ManageMovieViewModel movie, System.Web.HttpPostedFileBase file)
         {
@@ -190,7 +191,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 修改电影
         //
         // GET: /Manage/Movie/Edit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Edit(string id)
         {
             if (!MovieManager.Exist(id))
@@ -205,7 +206,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Movie/Edit/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageMovieViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -233,7 +234,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 删除电影
         //
         // GET: /Manage/Movie/Delete/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Delete(string id)
         {
             if (!MovieManager.Exist(id))
@@ -248,7 +249,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // Post: /Manage/Movie/Delete/
         [HttpPost, ActionName("Delete")]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id)
         {
@@ -270,7 +271,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 更新电影
         //
         // GET: /Manage/Movie/Refresh/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Refresh(string id)
         {
             if (!MovieManager.Exist(id))
@@ -303,7 +304,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // Post: /Manage/Movie/Refresh/
         [HttpPost, ActionName("Refresh")]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult RefreshConfirm(string id)
         {

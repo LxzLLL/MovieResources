@@ -13,7 +13,8 @@ namespace MovieResources.Controllers
         public ActionResult Index(int offset = 0)
         {
             HomeViewModel model = new HomeViewModel();
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
 
             var dis = _db.tbl_Discovery.OrderByDescending(d => d.disc_Flag).ToList();
             if (offset >= dis.Count || offset < 0)
@@ -68,7 +69,8 @@ namespace MovieResources.Controllers
         // GET: /Home/Test/
         public ActionResult Test()
         {
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
 
             foreach (var celeb in _db.tbl_Celebrity)
             {
@@ -83,7 +85,8 @@ namespace MovieResources.Controllers
                             item.movie_CastsId.Replace(celeb.celeb_DoubanID, celeb.celeb_Id);
                     }
             }
-            _db.SubmitChanges();
+            //_db.SubmitChanges();
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

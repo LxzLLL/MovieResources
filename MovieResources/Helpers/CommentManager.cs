@@ -14,7 +14,8 @@ namespace MovieResources.Helpers
         /// <returns>评论id</returns>
         public static string Create(string content, string movie, string user)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Comment cmt = new tbl_Comment()
                 {
@@ -30,9 +31,11 @@ namespace MovieResources.Helpers
                 } while (_db.tbl_Comment.Where(p => p.cmt_Id == guid).Count() != 0);
                 cmt.cmt_Id = guid;
 
-                _db.tbl_Comment.InsertOnSubmit(cmt);
-                _db.SubmitChanges();
-                _db.SetCmtTime(guid);
+                //_db.tbl_Comment.InsertOnSubmit(cmt);
+                //_db.SubmitChanges();
+                //_db.SetCmtTime(guid);
+                _db.tbl_Comment.Add(cmt);
+                _db.SaveChanges();
 
                 return cmt.cmt_Id;
             }
@@ -44,12 +47,15 @@ namespace MovieResources.Helpers
         /// <param name="id">评论id</param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var cmt = _db.tbl_Comment.SingleOrDefault(a => a.cmt_Id == id);
 
-                _db.tbl_Comment.DeleteOnSubmit(cmt);
-                _db.SubmitChanges();
+                //_db.tbl_Comment.DeleteOnSubmit(cmt);
+                //_db.SubmitChanges();
+                _db.tbl_Comment.Remove(cmt);
+                _db.SaveChanges();
             }
         }
 
@@ -60,7 +66,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Comment.SingleOrDefault(p => p.cmt_Id == id) == null)
                 {

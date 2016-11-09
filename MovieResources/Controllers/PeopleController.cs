@@ -16,7 +16,8 @@ namespace MovieResources.Controllers
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             PeopleViewModel model = new PeopleViewModel();
             model.Id = id;
             model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Id == model.Id).user_Avatar;

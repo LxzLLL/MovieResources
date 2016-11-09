@@ -1,0 +1,1649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MRDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Album">
+          <Key>
+            <PropertyRef Name="album_Id" />
+          </Key>
+          <Property Name="album_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="album_Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="album_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="album_Item" Type="nvarchar(max)" />
+          <Property Name="album_Summary" Type="nvarchar(max)" />
+          <Property Name="album_Time" Type="datetime" />
+          <Property Name="album_AlterTime" Type="datetime" />
+          <Property Name="album_Cover" Type="nvarchar" MaxLength="100" />
+          <Property Name="album_Visit" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Ask">
+          <Key>
+            <PropertyRef Name="ask_Id" />
+          </Key>
+          <Property Name="ask_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ask_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ask_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ask_Time" Type="datetime" />
+          <Property Name="ask_With" Type="int" />
+          <Property Name="ask_Note" Type="nvarchar(max)" />
+          <Property Name="ask_State" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Celebrity">
+          <Key>
+            <PropertyRef Name="celeb_Id" />
+          </Key>
+          <Property Name="celeb_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="celeb_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="celeb_Aka" Type="nvarchar(max)" />
+          <Property Name="celeb_NameEn" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_AkaEn" Type="nvarchar(max)" />
+          <Property Name="celeb_Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="celeb_Pro" Type="nvarchar(max)" />
+          <Property Name="celeb_Birthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_Deathday" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_BornPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_Family" Type="nvarchar(max)" />
+          <Property Name="celeb_Avatar" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_Works" Type="nvarchar(max)" />
+          <Property Name="celeb_DoubanID" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_IMDbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="celeb_Summary" Type="nvarchar(max)" />
+          <Property Name="celeb_Create" Type="varchar" MaxLength="50" />
+          <Property Name="celeb_Status" Type="tinyint" />
+          <Property Name="celeb_Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="celeb_Time" Type="datetime" />
+          <Property Name="celeb_AlterTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Comment">
+          <Key>
+            <PropertyRef Name="cmt_Id" />
+          </Key>
+          <Property Name="cmt_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cmt_Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cmt_User" Type="varchar" MaxLength="50" />
+          <Property Name="cmt_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cmt_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Country">
+          <Key>
+            <PropertyRef Name="country_Id" />
+          </Key>
+          <Property Name="country_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Discovery">
+          <Key>
+            <PropertyRef Name="disc_Id" />
+          </Key>
+          <Property Name="disc_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="disc_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="disc_Image" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="disc_Flag" Type="int" Nullable="false" />
+          <Property Name="disc_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_FavorRes">
+          <Key>
+            <PropertyRef Name="favor_Id" />
+          </Key>
+          <Property Name="favor_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="favor_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="favor_Res" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="favor_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_FollowAlbum">
+          <Key>
+            <PropertyRef Name="follow_Id" />
+          </Key>
+          <Property Name="follow_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="follow_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="follow_Album" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="follow_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_GenreMovie">
+          <Key>
+            <PropertyRef Name="genre_Id" />
+          </Key>
+          <Property Name="genre_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genre_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Language">
+          <Key>
+            <PropertyRef Name="lang_Id" />
+          </Key>
+          <Property Name="lang_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lang_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Mark">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Type" Type="tinyint" Nullable="false" />
+          <Property Name="mark_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Target" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_MarkCeleb">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Celeb" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_MarkMovie">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Type" Type="tinyint" Nullable="false" />
+          <Property Name="mark_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mark_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Movie">
+          <Key>
+            <PropertyRef Name="movie_Id" />
+          </Key>
+          <Property Name="movie_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="movie_Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="movie_TitleEn" Type="nvarchar" MaxLength="100" />
+          <Property Name="movie_Aka" Type="nvarchar(max)" />
+          <Property Name="movie_Directors" Type="nvarchar(max)" />
+          <Property Name="movie_Writers" Type="nvarchar(max)" />
+          <Property Name="movie_Casts" Type="nvarchar(max)" />
+          <Property Name="movie_DirectorsId" Type="nvarchar(max)" />
+          <Property Name="movie_WritersId" Type="nvarchar(max)" />
+          <Property Name="movie_CastsId" Type="nvarchar(max)" />
+          <Property Name="movie_Year" Type="varchar" MaxLength="50" />
+          <Property Name="movie_Pubdates" Type="nvarchar" MaxLength="200" />
+          <Property Name="movie_Durations" Type="nvarchar" MaxLength="200" />
+          <Property Name="movie_Genres" Type="varchar" MaxLength="50" />
+          <Property Name="movie_Languages" Type="varchar" MaxLength="50" />
+          <Property Name="movie_Countries" Type="varchar" MaxLength="50" />
+          <Property Name="movie_Rating" Type="varchar" MaxLength="50" />
+          <Property Name="movie_RatingCount" Type="varchar" MaxLength="50" />
+          <Property Name="movie_DoubanID" Type="nvarchar" MaxLength="50" />
+          <Property Name="movie_IMDbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="movie_Summary" Type="nvarchar(max)" />
+          <Property Name="movie_Avatar" Type="nvarchar" MaxLength="50" />
+          <Property Name="movie_Create" Type="varchar" MaxLength="50" />
+          <Property Name="movie_Status" Type="tinyint" />
+          <Property Name="movie_Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="movie_Time" Type="datetime" />
+          <Property Name="movie_AlterTime" Type="datetime" />
+          <Property Name="movie_VisitCount" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Notice">
+          <Key>
+            <PropertyRef Name="notice_Id" />
+          </Key>
+          <Property Name="notice_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="notice_Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="notice_Res" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="notice_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="notice_Time" Type="datetime" />
+          <Property Name="notice_Flag" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="tbl_Resource">
+          <Key>
+            <PropertyRef Name="res_Id" />
+          </Key>
+          <Property Name="res_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="res_Name" Type="nvarchar(max)" />
+          <Property Name="res_Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="res_Size" Type="real" />
+          <Property Name="res_User" Type="varchar" MaxLength="50" />
+          <Property Name="res_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="res_Time" Type="datetime" />
+          <Property Name="res_FavorCount" Type="int" />
+          <Property Name="res_Type" Type="tinyint" />
+          <Property Name="res_Status" Type="tinyint" />
+          <Property Name="res_Note" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_UserAccount">
+          <Key>
+            <PropertyRef Name="user_Id" />
+          </Key>
+          <Property Name="user_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="user_EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_Avatar" Type="nvarchar" MaxLength="100" />
+          <Property Name="user_Cover" Type="nvarchar" MaxLength="100" />
+          <Property Name="user_CreateTime" Type="datetime" />
+          <Property Name="user_AlterTime" Type="datetime" />
+          <Property Name="user_IsAdmin" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_WithAsk">
+          <Key>
+            <PropertyRef Name="with_Id" />
+          </Key>
+          <Property Name="with_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="with_User" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="with_Ask" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="with_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Work">
+          <Key>
+            <PropertyRef Name="work_Id" />
+          </Key>
+          <Property Name="work_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="work_Movie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="work_Celeb" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="work_Type" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_tbl_Album_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Album" Type="Self.tbl_Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Album">
+              <PropertyRef Name="album_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ask_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ask">
+              <PropertyRef Name="ask_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ask_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ask">
+              <PropertyRef Name="ask_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Celebrity_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Comment_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Comment" Type="Self.tbl_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Comment">
+              <PropertyRef Name="cmt_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Comment_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Comment" Type="Self.tbl_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Comment">
+              <PropertyRef Name="cmt_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Discovery_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Discovery" Type="Self.tbl_Discovery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Discovery">
+              <PropertyRef Name="disc_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FavorRes_tbl_Album">
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="1" />
+          <End Role="tbl_FavorRes" Type="Self.tbl_FavorRes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Resource">
+              <PropertyRef Name="res_Id" />
+            </Principal>
+            <Dependent Role="tbl_FavorRes">
+              <PropertyRef Name="favor_Res" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FavorRes_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_FavorRes" Type="Self.tbl_FavorRes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_FavorRes">
+              <PropertyRef Name="favor_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FollowAlbum_tbl_Album">
+          <End Role="tbl_Album" Type="Self.tbl_Album" Multiplicity="1" />
+          <End Role="tbl_FollowAlbum" Type="Self.tbl_FollowAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Album">
+              <PropertyRef Name="album_Id" />
+            </Principal>
+            <Dependent Role="tbl_FollowAlbum">
+              <PropertyRef Name="follow_Album" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FollowAlbum_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_FollowAlbum" Type="Self.tbl_FollowAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_FollowAlbum">
+              <PropertyRef Name="follow_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Mark_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Mark" Type="Self.tbl_Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Mark">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkCeleb_tbl_Celeb">
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="1" />
+          <End Role="tbl_MarkCeleb" Type="Self.tbl_MarkCeleb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkCeleb">
+              <PropertyRef Name="mark_Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkCeleb_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_MarkCeleb" Type="Self.tbl_MarkCeleb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkCeleb">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkMovie_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_MarkMovie" Type="Self.tbl_MarkMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkMovie">
+              <PropertyRef Name="mark_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkMovie_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_MarkMovie" Type="Self.tbl_MarkMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkMovie">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Movie_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Movie">
+              <PropertyRef Name="movie_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Notice_tbl_Resource">
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="1" />
+          <End Role="tbl_Notice" Type="Self.tbl_Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Resource">
+              <PropertyRef Name="res_Id" />
+            </Principal>
+            <Dependent Role="tbl_Notice">
+              <PropertyRef Name="notice_Res" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Notice_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Notice" Type="Self.tbl_Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Notice">
+              <PropertyRef Name="notice_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Resource_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Resource">
+              <PropertyRef Name="res_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Resource_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Resource">
+              <PropertyRef Name="res_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WithAsk_tbl_Ask">
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="1" />
+          <End Role="tbl_WithAsk" Type="Self.tbl_WithAsk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ask">
+              <PropertyRef Name="ask_Id" />
+            </Principal>
+            <Dependent Role="tbl_WithAsk">
+              <PropertyRef Name="with_Ask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WithAsk_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_WithAsk" Type="Self.tbl_WithAsk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_WithAsk">
+              <PropertyRef Name="with_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Work_tbl_Celebrity">
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="1" />
+          <End Role="tbl_Work" Type="Self.tbl_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Id" />
+            </Principal>
+            <Dependent Role="tbl_Work">
+              <PropertyRef Name="work_Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Work_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Work" Type="Self.tbl_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Work">
+              <PropertyRef Name="work_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MRDataModelStoreContainer">
+          <EntitySet Name="tbl_Album" EntityType="Self.tbl_Album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Ask" EntityType="Self.tbl_Ask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Celebrity" EntityType="Self.tbl_Celebrity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Comment" EntityType="Self.tbl_Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Discovery" EntityType="Self.tbl_Discovery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_FavorRes" EntityType="Self.tbl_FavorRes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_FollowAlbum" EntityType="Self.tbl_FollowAlbum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GenreMovie" EntityType="Self.tbl_GenreMovie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Language" EntityType="Self.tbl_Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Mark" EntityType="Self.tbl_Mark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MarkCeleb" EntityType="Self.tbl_MarkCeleb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MarkMovie" EntityType="Self.tbl_MarkMovie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Movie" EntityType="Self.tbl_Movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Notice" EntityType="Self.tbl_Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Resource" EntityType="Self.tbl_Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_UserAccount" EntityType="Self.tbl_UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_WithAsk" EntityType="Self.tbl_WithAsk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Work" EntityType="Self.tbl_Work" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Album_tbl_UserAccount" Association="Self.FK_tbl_Album_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Album" EntitySet="tbl_Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ask_tbl_Movie" Association="Self.FK_tbl_Ask_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ask_tbl_UserAccount" Association="Self.FK_tbl_Ask_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Celebrity_tbl_UserAccount" Association="Self.FK_tbl_Celebrity_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Comment_tbl_Movie" Association="Self.FK_tbl_Comment_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Comment_tbl_UserAccount" Association="Self.FK_tbl_Comment_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Discovery_tbl_Movie" Association="Self.FK_tbl_Discovery_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Discovery" EntitySet="tbl_Discovery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FavorRes_tbl_Album" Association="Self.FK_tbl_FavorRes_tbl_Album">
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+            <End Role="tbl_FavorRes" EntitySet="tbl_FavorRes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FavorRes_tbl_UserAccount" Association="Self.FK_tbl_FavorRes_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_FavorRes" EntitySet="tbl_FavorRes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FollowAlbum_tbl_Album" Association="Self.FK_tbl_FollowAlbum_tbl_Album">
+            <End Role="tbl_Album" EntitySet="tbl_Album" />
+            <End Role="tbl_FollowAlbum" EntitySet="tbl_FollowAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FollowAlbum_tbl_UserAccount" Association="Self.FK_tbl_FollowAlbum_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_FollowAlbum" EntitySet="tbl_FollowAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Mark_tbl_UserAccount" Association="Self.FK_tbl_Mark_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Mark" EntitySet="tbl_Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkCeleb_tbl_Celeb" Association="Self.FK_tbl_MarkCeleb_tbl_Celeb">
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+            <End Role="tbl_MarkCeleb" EntitySet="tbl_MarkCeleb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkCeleb_tbl_UserAccount" Association="Self.FK_tbl_MarkCeleb_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_MarkCeleb" EntitySet="tbl_MarkCeleb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkMovie_tbl_Movie" Association="Self.FK_tbl_MarkMovie_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_MarkMovie" EntitySet="tbl_MarkMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkMovie_tbl_UserAccount" Association="Self.FK_tbl_MarkMovie_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_MarkMovie" EntitySet="tbl_MarkMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Movie_tbl_UserAccount" Association="Self.FK_tbl_Movie_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Notice_tbl_Resource" Association="Self.FK_tbl_Notice_tbl_Resource">
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+            <End Role="tbl_Notice" EntitySet="tbl_Notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Notice_tbl_UserAccount" Association="Self.FK_tbl_Notice_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Notice" EntitySet="tbl_Notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Resource_tbl_Movie" Association="Self.FK_tbl_Resource_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Resource_tbl_UserAccount" Association="Self.FK_tbl_Resource_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WithAsk_tbl_Ask" Association="Self.FK_tbl_WithAsk_tbl_Ask">
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+            <End Role="tbl_WithAsk" EntitySet="tbl_WithAsk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WithAsk_tbl_UserAccount" Association="Self.FK_tbl_WithAsk_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_WithAsk" EntitySet="tbl_WithAsk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Work_tbl_Celebrity" Association="Self.FK_tbl_Work_tbl_Celebrity">
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+            <End Role="tbl_Work" EntitySet="tbl_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Work_tbl_Movie" Association="Self.FK_tbl_Work_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Work" EntitySet="tbl_Work" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MRDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Album">
+          <Key>
+            <PropertyRef Name="album_Id" />
+          </Key>
+          <Property Name="album_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="album_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="album_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="album_Item" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="album_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="album_Time" Type="DateTime" Precision="3" />
+          <Property Name="album_AlterTime" Type="DateTime" Precision="3" />
+          <Property Name="album_Cover" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="album_Visit" Type="Int32" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Album_tbl_UserAccount" FromRole="tbl_Album" ToRole="tbl_UserAccount" />
+          <NavigationProperty Name="tbl_FollowAlbum" Relationship="Self.FK_tbl_FollowAlbum_tbl_Album" FromRole="tbl_Album" ToRole="tbl_FollowAlbum" />
+        </EntityType>
+        <EntityType Name="tbl_Ask">
+          <Key>
+            <PropertyRef Name="ask_Id" />
+          </Key>
+          <Property Name="ask_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ask_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ask_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ask_Time" Type="DateTime" Precision="3" />
+          <Property Name="ask_With" Type="Int32" />
+          <Property Name="ask_Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ask_State" Type="Boolean" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Ask_tbl_Movie" FromRole="tbl_Ask" ToRole="tbl_Movie" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Ask_tbl_UserAccount" FromRole="tbl_Ask" ToRole="tbl_UserAccount" />
+          <NavigationProperty Name="tbl_WithAsk" Relationship="Self.FK_tbl_WithAsk_tbl_Ask" FromRole="tbl_Ask" ToRole="tbl_WithAsk" />
+        </EntityType>
+        <EntityType Name="tbl_Celebrity">
+          <Key>
+            <PropertyRef Name="celeb_Id" />
+          </Key>
+          <Property Name="celeb_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celeb_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="celeb_Aka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_NameEn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_AkaEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Pro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Birthday" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Deathday" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_BornPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Family" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Works" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_DoubanID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_IMDbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Create" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="celeb_Status" Type="Byte" />
+          <Property Name="celeb_Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="celeb_Time" Type="DateTime" Precision="3" />
+          <Property Name="celeb_AlterTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Celebrity_tbl_UserAccount" FromRole="tbl_Celebrity" ToRole="tbl_UserAccount" />
+          <NavigationProperty Name="tbl_MarkCeleb" Relationship="Self.FK_tbl_MarkCeleb_tbl_Celeb" FromRole="tbl_Celebrity" ToRole="tbl_MarkCeleb" />
+          <NavigationProperty Name="tbl_Work" Relationship="Self.FK_tbl_Work_tbl_Celebrity" FromRole="tbl_Celebrity" ToRole="tbl_Work" />
+        </EntityType>
+        <EntityType Name="tbl_Comment">
+          <Key>
+            <PropertyRef Name="cmt_Id" />
+          </Key>
+          <Property Name="cmt_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cmt_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cmt_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cmt_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cmt_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Comment_tbl_Movie" FromRole="tbl_Comment" ToRole="tbl_Movie" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Comment_tbl_UserAccount" FromRole="tbl_Comment" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_Country">
+          <Key>
+            <PropertyRef Name="country_Id" />
+          </Key>
+          <Property Name="country_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Discovery">
+          <Key>
+            <PropertyRef Name="disc_Id" />
+          </Key>
+          <Property Name="disc_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="disc_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="disc_Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="disc_Flag" Type="Int32" Nullable="false" />
+          <Property Name="disc_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Discovery_tbl_Movie" FromRole="tbl_Discovery" ToRole="tbl_Movie" />
+        </EntityType>
+        <EntityType Name="tbl_FavorRes">
+          <Key>
+            <PropertyRef Name="favor_Id" />
+          </Key>
+          <Property Name="favor_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="favor_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="favor_Res" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="favor_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Resource" Relationship="Self.FK_tbl_FavorRes_tbl_Album" FromRole="tbl_FavorRes" ToRole="tbl_Resource" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_FavorRes_tbl_UserAccount" FromRole="tbl_FavorRes" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_FollowAlbum">
+          <Key>
+            <PropertyRef Name="follow_Id" />
+          </Key>
+          <Property Name="follow_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="follow_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="follow_Album" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="follow_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Album" Relationship="Self.FK_tbl_FollowAlbum_tbl_Album" FromRole="tbl_FollowAlbum" ToRole="tbl_Album" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_FollowAlbum_tbl_UserAccount" FromRole="tbl_FollowAlbum" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_GenreMovie">
+          <Key>
+            <PropertyRef Name="genre_Id" />
+          </Key>
+          <Property Name="genre_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genre_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Language">
+          <Key>
+            <PropertyRef Name="lang_Id" />
+          </Key>
+          <Property Name="lang_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lang_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Mark">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Type" Type="Byte" Nullable="false" />
+          <Property Name="mark_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Target" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Mark_tbl_UserAccount" FromRole="tbl_Mark" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_MarkCeleb">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Celeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Celebrity" Relationship="Self.FK_tbl_MarkCeleb_tbl_Celeb" FromRole="tbl_MarkCeleb" ToRole="tbl_Celebrity" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_MarkCeleb_tbl_UserAccount" FromRole="tbl_MarkCeleb" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_MarkMovie">
+          <Key>
+            <PropertyRef Name="mark_Id" />
+          </Key>
+          <Property Name="mark_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Type" Type="Byte" Nullable="false" />
+          <Property Name="mark_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_MarkMovie_tbl_Movie" FromRole="tbl_MarkMovie" ToRole="tbl_Movie" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_MarkMovie_tbl_UserAccount" FromRole="tbl_MarkMovie" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_Movie">
+          <Key>
+            <PropertyRef Name="movie_Id" />
+          </Key>
+          <Property Name="movie_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="movie_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="movie_TitleEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Aka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Directors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Writers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Casts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_DirectorsId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_WritersId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_CastsId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_Pubdates" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Durations" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Genres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_Languages" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_Countries" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_Rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_RatingCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_DoubanID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="movie_IMDbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Create" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="movie_Status" Type="Byte" />
+          <Property Name="movie_Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="movie_Time" Type="DateTime" Precision="3" />
+          <Property Name="movie_AlterTime" Type="DateTime" Precision="3" />
+          <Property Name="movie_VisitCount" Type="Int32" />
+          <NavigationProperty Name="tbl_Ask" Relationship="Self.FK_tbl_Ask_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Ask" />
+          <NavigationProperty Name="tbl_Comment" Relationship="Self.FK_tbl_Comment_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Comment" />
+          <NavigationProperty Name="tbl_Discovery" Relationship="Self.FK_tbl_Discovery_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Discovery" />
+          <NavigationProperty Name="tbl_MarkMovie" Relationship="Self.FK_tbl_MarkMovie_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_MarkMovie" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Movie_tbl_UserAccount" FromRole="tbl_Movie" ToRole="tbl_UserAccount" />
+          <NavigationProperty Name="tbl_Resource" Relationship="Self.FK_tbl_Resource_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Resource" />
+          <NavigationProperty Name="tbl_Work" Relationship="Self.FK_tbl_Work_tbl_Movie" FromRole="tbl_Movie" ToRole="tbl_Work" />
+        </EntityType>
+        <EntityType Name="tbl_Notice">
+          <Key>
+            <PropertyRef Name="notice_Id" />
+          </Key>
+          <Property Name="notice_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notice_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="notice_Res" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notice_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notice_Time" Type="DateTime" Precision="3" />
+          <Property Name="notice_Flag" Type="Byte" />
+          <NavigationProperty Name="tbl_Resource" Relationship="Self.FK_tbl_Notice_tbl_Resource" FromRole="tbl_Notice" ToRole="tbl_Resource" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Notice_tbl_UserAccount" FromRole="tbl_Notice" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_Resource">
+          <Key>
+            <PropertyRef Name="res_Id" />
+          </Key>
+          <Property Name="res_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="res_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="res_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="res_Size" Type="Single" />
+          <Property Name="res_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="res_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="res_Time" Type="DateTime" Precision="3" />
+          <Property Name="res_FavorCount" Type="Int32" />
+          <Property Name="res_Type" Type="Byte" />
+          <Property Name="res_Status" Type="Byte" />
+          <Property Name="res_Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_FavorRes" Relationship="Self.FK_tbl_FavorRes_tbl_Album" FromRole="tbl_Resource" ToRole="tbl_FavorRes" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Resource_tbl_Movie" FromRole="tbl_Resource" ToRole="tbl_Movie" />
+          <NavigationProperty Name="tbl_Notice" Relationship="Self.FK_tbl_Notice_tbl_Resource" FromRole="tbl_Resource" ToRole="tbl_Notice" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_Resource_tbl_UserAccount" FromRole="tbl_Resource" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_UserAccount">
+          <Key>
+            <PropertyRef Name="user_Id" />
+          </Key>
+          <Property Name="user_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="user_Cover" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="user_CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="user_AlterTime" Type="DateTime" Precision="3" />
+          <Property Name="user_IsAdmin" Type="Boolean" />
+          <NavigationProperty Name="tbl_Album" Relationship="Self.FK_tbl_Album_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Album" />
+          <NavigationProperty Name="tbl_Ask" Relationship="Self.FK_tbl_Ask_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Ask" />
+          <NavigationProperty Name="tbl_Celebrity" Relationship="Self.FK_tbl_Celebrity_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Celebrity" />
+          <NavigationProperty Name="tbl_Comment" Relationship="Self.FK_tbl_Comment_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Comment" />
+          <NavigationProperty Name="tbl_FavorRes" Relationship="Self.FK_tbl_FavorRes_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_FavorRes" />
+          <NavigationProperty Name="tbl_FollowAlbum" Relationship="Self.FK_tbl_FollowAlbum_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_FollowAlbum" />
+          <NavigationProperty Name="tbl_Mark" Relationship="Self.FK_tbl_Mark_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Mark" />
+          <NavigationProperty Name="tbl_MarkCeleb" Relationship="Self.FK_tbl_MarkCeleb_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_MarkCeleb" />
+          <NavigationProperty Name="tbl_MarkMovie" Relationship="Self.FK_tbl_MarkMovie_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_MarkMovie" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Movie_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Movie" />
+          <NavigationProperty Name="tbl_Notice" Relationship="Self.FK_tbl_Notice_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Notice" />
+          <NavigationProperty Name="tbl_Resource" Relationship="Self.FK_tbl_Resource_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_Resource" />
+          <NavigationProperty Name="tbl_WithAsk" Relationship="Self.FK_tbl_WithAsk_tbl_UserAccount" FromRole="tbl_UserAccount" ToRole="tbl_WithAsk" />
+        </EntityType>
+        <EntityType Name="tbl_WithAsk">
+          <Key>
+            <PropertyRef Name="with_Id" />
+          </Key>
+          <Property Name="with_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="with_User" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="with_Ask" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="with_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Ask" Relationship="Self.FK_tbl_WithAsk_tbl_Ask" FromRole="tbl_WithAsk" ToRole="tbl_Ask" />
+          <NavigationProperty Name="tbl_UserAccount" Relationship="Self.FK_tbl_WithAsk_tbl_UserAccount" FromRole="tbl_WithAsk" ToRole="tbl_UserAccount" />
+        </EntityType>
+        <EntityType Name="tbl_Work">
+          <Key>
+            <PropertyRef Name="work_Id" />
+          </Key>
+          <Property Name="work_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="work_Movie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="work_Celeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="work_Type" Type="Byte" />
+          <NavigationProperty Name="tbl_Celebrity" Relationship="Self.FK_tbl_Work_tbl_Celebrity" FromRole="tbl_Work" ToRole="tbl_Celebrity" />
+          <NavigationProperty Name="tbl_Movie" Relationship="Self.FK_tbl_Work_tbl_Movie" FromRole="tbl_Work" ToRole="tbl_Movie" />
+        </EntityType>
+        <Association Name="FK_tbl_Album_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Album" Type="Self.tbl_Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Album">
+              <PropertyRef Name="album_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FollowAlbum_tbl_Album">
+          <End Role="tbl_Album" Type="Self.tbl_Album" Multiplicity="1" />
+          <End Role="tbl_FollowAlbum" Type="Self.tbl_FollowAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Album">
+              <PropertyRef Name="album_Id" />
+            </Principal>
+            <Dependent Role="tbl_FollowAlbum">
+              <PropertyRef Name="follow_Album" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ask_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ask">
+              <PropertyRef Name="ask_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ask_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Ask">
+              <PropertyRef Name="ask_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WithAsk_tbl_Ask">
+          <End Role="tbl_Ask" Type="Self.tbl_Ask" Multiplicity="1" />
+          <End Role="tbl_WithAsk" Type="Self.tbl_WithAsk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ask">
+              <PropertyRef Name="ask_Id" />
+            </Principal>
+            <Dependent Role="tbl_WithAsk">
+              <PropertyRef Name="with_Ask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Celebrity_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkCeleb_tbl_Celeb">
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="1" />
+          <End Role="tbl_MarkCeleb" Type="Self.tbl_MarkCeleb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkCeleb">
+              <PropertyRef Name="mark_Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Work_tbl_Celebrity">
+          <End Role="tbl_Celebrity" Type="Self.tbl_Celebrity" Multiplicity="1" />
+          <End Role="tbl_Work" Type="Self.tbl_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Celebrity">
+              <PropertyRef Name="celeb_Id" />
+            </Principal>
+            <Dependent Role="tbl_Work">
+              <PropertyRef Name="work_Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Comment_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Comment" Type="Self.tbl_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Comment">
+              <PropertyRef Name="cmt_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Comment_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Comment" Type="Self.tbl_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Comment">
+              <PropertyRef Name="cmt_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Discovery_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Discovery" Type="Self.tbl_Discovery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Discovery">
+              <PropertyRef Name="disc_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FavorRes_tbl_Album">
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="1" />
+          <End Role="tbl_FavorRes" Type="Self.tbl_FavorRes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Resource">
+              <PropertyRef Name="res_Id" />
+            </Principal>
+            <Dependent Role="tbl_FavorRes">
+              <PropertyRef Name="favor_Res" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FavorRes_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_FavorRes" Type="Self.tbl_FavorRes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_FavorRes">
+              <PropertyRef Name="favor_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FollowAlbum_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_FollowAlbum" Type="Self.tbl_FollowAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_FollowAlbum">
+              <PropertyRef Name="follow_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Mark_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Mark" Type="Self.tbl_Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Mark">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkCeleb_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_MarkCeleb" Type="Self.tbl_MarkCeleb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkCeleb">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkMovie_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_MarkMovie" Type="Self.tbl_MarkMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkMovie">
+              <PropertyRef Name="mark_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_MarkMovie_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_MarkMovie" Type="Self.tbl_MarkMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_MarkMovie">
+              <PropertyRef Name="mark_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Movie_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Movie">
+              <PropertyRef Name="movie_Create" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Resource_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Resource">
+              <PropertyRef Name="res_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Work_tbl_Movie">
+          <End Role="tbl_Movie" Type="Self.tbl_Movie" Multiplicity="1" />
+          <End Role="tbl_Work" Type="Self.tbl_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Movie">
+              <PropertyRef Name="movie_Id" />
+            </Principal>
+            <Dependent Role="tbl_Work">
+              <PropertyRef Name="work_Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Notice_tbl_Resource">
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="1" />
+          <End Role="tbl_Notice" Type="Self.tbl_Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Resource">
+              <PropertyRef Name="res_Id" />
+            </Principal>
+            <Dependent Role="tbl_Notice">
+              <PropertyRef Name="notice_Res" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Notice_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_Notice" Type="Self.tbl_Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Notice">
+              <PropertyRef Name="notice_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Resource_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="0..1" />
+          <End Role="tbl_Resource" Type="Self.tbl_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_Resource">
+              <PropertyRef Name="res_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WithAsk_tbl_UserAccount">
+          <End Role="tbl_UserAccount" Type="Self.tbl_UserAccount" Multiplicity="1" />
+          <End Role="tbl_WithAsk" Type="Self.tbl_WithAsk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_UserAccount">
+              <PropertyRef Name="user_Id" />
+            </Principal>
+            <Dependent Role="tbl_WithAsk">
+              <PropertyRef Name="with_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MRDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Album" EntityType="Self.tbl_Album" />
+          <EntitySet Name="tbl_Ask" EntityType="Self.tbl_Ask" />
+          <EntitySet Name="tbl_Celebrity" EntityType="Self.tbl_Celebrity" />
+          <EntitySet Name="tbl_Comment" EntityType="Self.tbl_Comment" />
+          <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" />
+          <EntitySet Name="tbl_Discovery" EntityType="Self.tbl_Discovery" />
+          <EntitySet Name="tbl_FavorRes" EntityType="Self.tbl_FavorRes" />
+          <EntitySet Name="tbl_FollowAlbum" EntityType="Self.tbl_FollowAlbum" />
+          <EntitySet Name="tbl_GenreMovie" EntityType="Self.tbl_GenreMovie" />
+          <EntitySet Name="tbl_Language" EntityType="Self.tbl_Language" />
+          <EntitySet Name="tbl_Mark" EntityType="Self.tbl_Mark" />
+          <EntitySet Name="tbl_MarkCeleb" EntityType="Self.tbl_MarkCeleb" />
+          <EntitySet Name="tbl_MarkMovie" EntityType="Self.tbl_MarkMovie" />
+          <EntitySet Name="tbl_Movie" EntityType="Self.tbl_Movie" />
+          <EntitySet Name="tbl_Notice" EntityType="Self.tbl_Notice" />
+          <EntitySet Name="tbl_Resource" EntityType="Self.tbl_Resource" />
+          <EntitySet Name="tbl_UserAccount" EntityType="Self.tbl_UserAccount" />
+          <EntitySet Name="tbl_WithAsk" EntityType="Self.tbl_WithAsk" />
+          <EntitySet Name="tbl_Work" EntityType="Self.tbl_Work" />
+          <AssociationSet Name="FK_tbl_Album_tbl_UserAccount" Association="Self.FK_tbl_Album_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Album" EntitySet="tbl_Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FollowAlbum_tbl_Album" Association="Self.FK_tbl_FollowAlbum_tbl_Album">
+            <End Role="tbl_Album" EntitySet="tbl_Album" />
+            <End Role="tbl_FollowAlbum" EntitySet="tbl_FollowAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ask_tbl_Movie" Association="Self.FK_tbl_Ask_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ask_tbl_UserAccount" Association="Self.FK_tbl_Ask_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WithAsk_tbl_Ask" Association="Self.FK_tbl_WithAsk_tbl_Ask">
+            <End Role="tbl_Ask" EntitySet="tbl_Ask" />
+            <End Role="tbl_WithAsk" EntitySet="tbl_WithAsk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Celebrity_tbl_UserAccount" Association="Self.FK_tbl_Celebrity_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkCeleb_tbl_Celeb" Association="Self.FK_tbl_MarkCeleb_tbl_Celeb">
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+            <End Role="tbl_MarkCeleb" EntitySet="tbl_MarkCeleb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Work_tbl_Celebrity" Association="Self.FK_tbl_Work_tbl_Celebrity">
+            <End Role="tbl_Celebrity" EntitySet="tbl_Celebrity" />
+            <End Role="tbl_Work" EntitySet="tbl_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Comment_tbl_Movie" Association="Self.FK_tbl_Comment_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Comment_tbl_UserAccount" Association="Self.FK_tbl_Comment_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Comment" EntitySet="tbl_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Discovery_tbl_Movie" Association="Self.FK_tbl_Discovery_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Discovery" EntitySet="tbl_Discovery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FavorRes_tbl_Album" Association="Self.FK_tbl_FavorRes_tbl_Album">
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+            <End Role="tbl_FavorRes" EntitySet="tbl_FavorRes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FavorRes_tbl_UserAccount" Association="Self.FK_tbl_FavorRes_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_FavorRes" EntitySet="tbl_FavorRes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FollowAlbum_tbl_UserAccount" Association="Self.FK_tbl_FollowAlbum_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_FollowAlbum" EntitySet="tbl_FollowAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Mark_tbl_UserAccount" Association="Self.FK_tbl_Mark_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Mark" EntitySet="tbl_Mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkCeleb_tbl_UserAccount" Association="Self.FK_tbl_MarkCeleb_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_MarkCeleb" EntitySet="tbl_MarkCeleb" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkMovie_tbl_Movie" Association="Self.FK_tbl_MarkMovie_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_MarkMovie" EntitySet="tbl_MarkMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_MarkMovie_tbl_UserAccount" Association="Self.FK_tbl_MarkMovie_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_MarkMovie" EntitySet="tbl_MarkMovie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Movie_tbl_UserAccount" Association="Self.FK_tbl_Movie_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Resource_tbl_Movie" Association="Self.FK_tbl_Resource_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Work_tbl_Movie" Association="Self.FK_tbl_Work_tbl_Movie">
+            <End Role="tbl_Movie" EntitySet="tbl_Movie" />
+            <End Role="tbl_Work" EntitySet="tbl_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Notice_tbl_Resource" Association="Self.FK_tbl_Notice_tbl_Resource">
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+            <End Role="tbl_Notice" EntitySet="tbl_Notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Notice_tbl_UserAccount" Association="Self.FK_tbl_Notice_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Notice" EntitySet="tbl_Notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Resource_tbl_UserAccount" Association="Self.FK_tbl_Resource_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_Resource" EntitySet="tbl_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WithAsk_tbl_UserAccount" Association="Self.FK_tbl_WithAsk_tbl_UserAccount">
+            <End Role="tbl_UserAccount" EntitySet="tbl_UserAccount" />
+            <End Role="tbl_WithAsk" EntitySet="tbl_WithAsk" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MRDataModelStoreContainer" CdmEntityContainer="MRDataEntities">
+          <EntitySetMapping Name="tbl_Album">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Album">
+              <MappingFragment StoreEntitySet="tbl_Album">
+                <ScalarProperty Name="album_Id" ColumnName="album_Id" />
+                <ScalarProperty Name="album_Title" ColumnName="album_Title" />
+                <ScalarProperty Name="album_User" ColumnName="album_User" />
+                <ScalarProperty Name="album_Item" ColumnName="album_Item" />
+                <ScalarProperty Name="album_Summary" ColumnName="album_Summary" />
+                <ScalarProperty Name="album_Time" ColumnName="album_Time" />
+                <ScalarProperty Name="album_AlterTime" ColumnName="album_AlterTime" />
+                <ScalarProperty Name="album_Cover" ColumnName="album_Cover" />
+                <ScalarProperty Name="album_Visit" ColumnName="album_Visit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Ask">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Ask">
+              <MappingFragment StoreEntitySet="tbl_Ask">
+                <ScalarProperty Name="ask_Id" ColumnName="ask_Id" />
+                <ScalarProperty Name="ask_User" ColumnName="ask_User" />
+                <ScalarProperty Name="ask_Movie" ColumnName="ask_Movie" />
+                <ScalarProperty Name="ask_Time" ColumnName="ask_Time" />
+                <ScalarProperty Name="ask_With" ColumnName="ask_With" />
+                <ScalarProperty Name="ask_Note" ColumnName="ask_Note" />
+                <ScalarProperty Name="ask_State" ColumnName="ask_State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Celebrity">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Celebrity">
+              <MappingFragment StoreEntitySet="tbl_Celebrity">
+                <ScalarProperty Name="celeb_Id" ColumnName="celeb_Id" />
+                <ScalarProperty Name="celeb_Name" ColumnName="celeb_Name" />
+                <ScalarProperty Name="celeb_Aka" ColumnName="celeb_Aka" />
+                <ScalarProperty Name="celeb_NameEn" ColumnName="celeb_NameEn" />
+                <ScalarProperty Name="celeb_AkaEn" ColumnName="celeb_AkaEn" />
+                <ScalarProperty Name="celeb_Gender" ColumnName="celeb_Gender" />
+                <ScalarProperty Name="celeb_Pro" ColumnName="celeb_Pro" />
+                <ScalarProperty Name="celeb_Birthday" ColumnName="celeb_Birthday" />
+                <ScalarProperty Name="celeb_Deathday" ColumnName="celeb_Deathday" />
+                <ScalarProperty Name="celeb_BornPlace" ColumnName="celeb_BornPlace" />
+                <ScalarProperty Name="celeb_Family" ColumnName="celeb_Family" />
+                <ScalarProperty Name="celeb_Avatar" ColumnName="celeb_Avatar" />
+                <ScalarProperty Name="celeb_Works" ColumnName="celeb_Works" />
+                <ScalarProperty Name="celeb_DoubanID" ColumnName="celeb_DoubanID" />
+                <ScalarProperty Name="celeb_IMDbID" ColumnName="celeb_IMDbID" />
+                <ScalarProperty Name="celeb_Summary" ColumnName="celeb_Summary" />
+                <ScalarProperty Name="celeb_Create" ColumnName="celeb_Create" />
+                <ScalarProperty Name="celeb_Status" ColumnName="celeb_Status" />
+                <ScalarProperty Name="celeb_Note" ColumnName="celeb_Note" />
+                <ScalarProperty Name="celeb_Time" ColumnName="celeb_Time" />
+                <ScalarProperty Name="celeb_AlterTime" ColumnName="celeb_AlterTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Comment">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Comment">
+              <MappingFragment StoreEntitySet="tbl_Comment">
+                <ScalarProperty Name="cmt_Id" ColumnName="cmt_Id" />
+                <ScalarProperty Name="cmt_Content" ColumnName="cmt_Content" />
+                <ScalarProperty Name="cmt_User" ColumnName="cmt_User" />
+                <ScalarProperty Name="cmt_Movie" ColumnName="cmt_Movie" />
+                <ScalarProperty Name="cmt_Time" ColumnName="cmt_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Country">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Country">
+              <MappingFragment StoreEntitySet="tbl_Country">
+                <ScalarProperty Name="country_Id" ColumnName="country_Id" />
+                <ScalarProperty Name="country_Name" ColumnName="country_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Discovery">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Discovery">
+              <MappingFragment StoreEntitySet="tbl_Discovery">
+                <ScalarProperty Name="disc_Id" ColumnName="disc_Id" />
+                <ScalarProperty Name="disc_Movie" ColumnName="disc_Movie" />
+                <ScalarProperty Name="disc_Image" ColumnName="disc_Image" />
+                <ScalarProperty Name="disc_Flag" ColumnName="disc_Flag" />
+                <ScalarProperty Name="disc_Time" ColumnName="disc_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_FavorRes">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_FavorRes">
+              <MappingFragment StoreEntitySet="tbl_FavorRes">
+                <ScalarProperty Name="favor_Id" ColumnName="favor_Id" />
+                <ScalarProperty Name="favor_User" ColumnName="favor_User" />
+                <ScalarProperty Name="favor_Res" ColumnName="favor_Res" />
+                <ScalarProperty Name="favor_Time" ColumnName="favor_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_FollowAlbum">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_FollowAlbum">
+              <MappingFragment StoreEntitySet="tbl_FollowAlbum">
+                <ScalarProperty Name="follow_Id" ColumnName="follow_Id" />
+                <ScalarProperty Name="follow_User" ColumnName="follow_User" />
+                <ScalarProperty Name="follow_Album" ColumnName="follow_Album" />
+                <ScalarProperty Name="follow_Time" ColumnName="follow_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_GenreMovie">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_GenreMovie">
+              <MappingFragment StoreEntitySet="tbl_GenreMovie">
+                <ScalarProperty Name="genre_Id" ColumnName="genre_Id" />
+                <ScalarProperty Name="genre_Name" ColumnName="genre_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Language">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Language">
+              <MappingFragment StoreEntitySet="tbl_Language">
+                <ScalarProperty Name="lang_Id" ColumnName="lang_Id" />
+                <ScalarProperty Name="lang_Name" ColumnName="lang_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Mark">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Mark">
+              <MappingFragment StoreEntitySet="tbl_Mark">
+                <ScalarProperty Name="mark_Id" ColumnName="mark_Id" />
+                <ScalarProperty Name="mark_Type" ColumnName="mark_Type" />
+                <ScalarProperty Name="mark_User" ColumnName="mark_User" />
+                <ScalarProperty Name="mark_Target" ColumnName="mark_Target" />
+                <ScalarProperty Name="mark_Time" ColumnName="mark_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MarkCeleb">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_MarkCeleb">
+              <MappingFragment StoreEntitySet="tbl_MarkCeleb">
+                <ScalarProperty Name="mark_Id" ColumnName="mark_Id" />
+                <ScalarProperty Name="mark_User" ColumnName="mark_User" />
+                <ScalarProperty Name="mark_Celeb" ColumnName="mark_Celeb" />
+                <ScalarProperty Name="mark_Time" ColumnName="mark_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MarkMovie">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_MarkMovie">
+              <MappingFragment StoreEntitySet="tbl_MarkMovie">
+                <ScalarProperty Name="mark_Id" ColumnName="mark_Id" />
+                <ScalarProperty Name="mark_Type" ColumnName="mark_Type" />
+                <ScalarProperty Name="mark_User" ColumnName="mark_User" />
+                <ScalarProperty Name="mark_Movie" ColumnName="mark_Movie" />
+                <ScalarProperty Name="mark_Time" ColumnName="mark_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Movie">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Movie">
+              <MappingFragment StoreEntitySet="tbl_Movie">
+                <ScalarProperty Name="movie_Id" ColumnName="movie_Id" />
+                <ScalarProperty Name="movie_Title" ColumnName="movie_Title" />
+                <ScalarProperty Name="movie_TitleEn" ColumnName="movie_TitleEn" />
+                <ScalarProperty Name="movie_Aka" ColumnName="movie_Aka" />
+                <ScalarProperty Name="movie_Directors" ColumnName="movie_Directors" />
+                <ScalarProperty Name="movie_Writers" ColumnName="movie_Writers" />
+                <ScalarProperty Name="movie_Casts" ColumnName="movie_Casts" />
+                <ScalarProperty Name="movie_DirectorsId" ColumnName="movie_DirectorsId" />
+                <ScalarProperty Name="movie_WritersId" ColumnName="movie_WritersId" />
+                <ScalarProperty Name="movie_CastsId" ColumnName="movie_CastsId" />
+                <ScalarProperty Name="movie_Year" ColumnName="movie_Year" />
+                <ScalarProperty Name="movie_Pubdates" ColumnName="movie_Pubdates" />
+                <ScalarProperty Name="movie_Durations" ColumnName="movie_Durations" />
+                <ScalarProperty Name="movie_Genres" ColumnName="movie_Genres" />
+                <ScalarProperty Name="movie_Languages" ColumnName="movie_Languages" />
+                <ScalarProperty Name="movie_Countries" ColumnName="movie_Countries" />
+                <ScalarProperty Name="movie_Rating" ColumnName="movie_Rating" />
+                <ScalarProperty Name="movie_RatingCount" ColumnName="movie_RatingCount" />
+                <ScalarProperty Name="movie_DoubanID" ColumnName="movie_DoubanID" />
+                <ScalarProperty Name="movie_IMDbID" ColumnName="movie_IMDbID" />
+                <ScalarProperty Name="movie_Summary" ColumnName="movie_Summary" />
+                <ScalarProperty Name="movie_Avatar" ColumnName="movie_Avatar" />
+                <ScalarProperty Name="movie_Create" ColumnName="movie_Create" />
+                <ScalarProperty Name="movie_Status" ColumnName="movie_Status" />
+                <ScalarProperty Name="movie_Note" ColumnName="movie_Note" />
+                <ScalarProperty Name="movie_Time" ColumnName="movie_Time" />
+                <ScalarProperty Name="movie_AlterTime" ColumnName="movie_AlterTime" />
+                <ScalarProperty Name="movie_VisitCount" ColumnName="movie_VisitCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Notice">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Notice">
+              <MappingFragment StoreEntitySet="tbl_Notice">
+                <ScalarProperty Name="notice_Id" ColumnName="notice_Id" />
+                <ScalarProperty Name="notice_Content" ColumnName="notice_Content" />
+                <ScalarProperty Name="notice_Res" ColumnName="notice_Res" />
+                <ScalarProperty Name="notice_User" ColumnName="notice_User" />
+                <ScalarProperty Name="notice_Time" ColumnName="notice_Time" />
+                <ScalarProperty Name="notice_Flag" ColumnName="notice_Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Resource">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Resource">
+              <MappingFragment StoreEntitySet="tbl_Resource">
+                <ScalarProperty Name="res_Id" ColumnName="res_Id" />
+                <ScalarProperty Name="res_Name" ColumnName="res_Name" />
+                <ScalarProperty Name="res_Content" ColumnName="res_Content" />
+                <ScalarProperty Name="res_Size" ColumnName="res_Size" />
+                <ScalarProperty Name="res_User" ColumnName="res_User" />
+                <ScalarProperty Name="res_Movie" ColumnName="res_Movie" />
+                <ScalarProperty Name="res_Time" ColumnName="res_Time" />
+                <ScalarProperty Name="res_FavorCount" ColumnName="res_FavorCount" />
+                <ScalarProperty Name="res_Type" ColumnName="res_Type" />
+                <ScalarProperty Name="res_Status" ColumnName="res_Status" />
+                <ScalarProperty Name="res_Note" ColumnName="res_Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_UserAccount">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_UserAccount">
+              <MappingFragment StoreEntitySet="tbl_UserAccount">
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+                <ScalarProperty Name="user_Account" ColumnName="user_Account" />
+                <ScalarProperty Name="user_Password" ColumnName="user_Password" />
+                <ScalarProperty Name="user_EmailAddress" ColumnName="user_EmailAddress" />
+                <ScalarProperty Name="user_Avatar" ColumnName="user_Avatar" />
+                <ScalarProperty Name="user_Cover" ColumnName="user_Cover" />
+                <ScalarProperty Name="user_CreateTime" ColumnName="user_CreateTime" />
+                <ScalarProperty Name="user_AlterTime" ColumnName="user_AlterTime" />
+                <ScalarProperty Name="user_IsAdmin" ColumnName="user_IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_WithAsk">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_WithAsk">
+              <MappingFragment StoreEntitySet="tbl_WithAsk">
+                <ScalarProperty Name="with_Id" ColumnName="with_Id" />
+                <ScalarProperty Name="with_User" ColumnName="with_User" />
+                <ScalarProperty Name="with_Ask" ColumnName="with_Ask" />
+                <ScalarProperty Name="with_Time" ColumnName="with_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Work">
+            <EntityTypeMapping TypeName="MRDataModel.tbl_Work">
+              <MappingFragment StoreEntitySet="tbl_Work">
+                <ScalarProperty Name="work_Id" ColumnName="work_Id" />
+                <ScalarProperty Name="work_Movie" ColumnName="work_Movie" />
+                <ScalarProperty Name="work_Celeb" ColumnName="work_Celeb" />
+                <ScalarProperty Name="work_Type" ColumnName="work_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

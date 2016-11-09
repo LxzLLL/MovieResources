@@ -103,7 +103,8 @@ namespace MovieResources.Models
             CreateTime = ((DateTime)album.album_Time).Date.ToShortDateString();
             AlterTime = ((DateTime)album.album_AlterTime).Date.ToShortDateString();
 
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             ItemJson = album.album_Item;
 
 
@@ -163,7 +164,8 @@ namespace MovieResources.Models
                 UserAccount = AccountManager.GetAccount(album.album_User);
             }
             VisitCount = (int)album.album_Visit;
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             FollowCount = _db.tbl_Mark.Where(m => m.mark_Target == album.album_Id && m.mark_Type == 7).Count();
         }
 

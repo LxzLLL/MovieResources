@@ -45,6 +45,7 @@ namespace MovieResources.Helpers
                 StreamReader sr = new StreamReader(myStream, System.Text.Encoding.GetEncoding("utf-8"));
                 string strHTML = sr.ReadToEnd();
                 myStream.Close();
+                sr.Close();
                 return strHTML;
             }
             catch (WebException)

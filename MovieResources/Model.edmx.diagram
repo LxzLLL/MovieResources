@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dffa7bbf5f1f4407bc858430abc200f7" Name="Diagram1">
+        <EntityTypeShape EntityType="MRDataModel.tbl_Album" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Ask" Width="1.5" PointX="5.25" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Celebrity" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Comment" Width="1.5" PointX="8.25" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Country" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Discovery" Width="1.5" PointX="5.25" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_FavorRes" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_FollowAlbum" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_GenreMovie" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Language" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Mark" Width="1.5" PointX="3" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_MarkCeleb" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_MarkMovie" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Movie" Width="1.5" PointX="3" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Notice" Width="1.5" PointX="10.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Resource" Width="1.5" PointX="8.25" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_UserAccount" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_WithAsk" Width="1.5" PointX="7.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="MRDataModel.tbl_Work" Width="1.5" PointX="5.25" PointY="33.625" IsExpanded="true" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Album_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_FollowAlbum_tbl_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Ask_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Ask_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_WithAsk_tbl_Ask" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Celebrity_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_MarkCeleb_tbl_Celeb" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Work_tbl_Celebrity" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Comment_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Comment_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Discovery_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_FavorRes_tbl_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_FavorRes_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_FollowAlbum_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Mark_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_MarkCeleb_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_MarkMovie_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_MarkMovie_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Movie_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Resource_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Work_tbl_Movie" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Notice_tbl_Resource" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Notice_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_Resource_tbl_UserAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MRDataModel.FK_tbl_WithAsk_tbl_UserAccount" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

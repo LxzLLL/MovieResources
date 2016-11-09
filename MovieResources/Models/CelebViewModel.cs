@@ -105,7 +105,8 @@ namespace MovieResources.Models
             Works = new List<CelebWorkItem>();
             if (DoubanID != null)
             {
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
                 var works = _db.tbl_Movie.Where(
                     m => m.movie_DirectorsId.Contains(celeb.celeb_DoubanID) ||
                     m.movie_DirectorsId.Contains(celeb.celeb_Id) ||

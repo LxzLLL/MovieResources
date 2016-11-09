@@ -87,7 +87,8 @@ namespace MovieResources.Helpers
                 movie.movie_Directors = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class='pl'>导演</span>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>");
                 movie.movie_DirectorsId = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class='pl'>导演</span>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>", "href=\"/celebrity/", "/\"");
                 temp.Clear();
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
                 foreach (var item in movie.movie_DirectorsId.Split('/'))
                 {
                     var director = _db.tbl_Celebrity.SingleOrDefault(c => c.celeb_DoubanID != null && c.celeb_DoubanID == item);
@@ -108,7 +109,8 @@ namespace MovieResources.Helpers
                 movie.movie_Writers = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class='pl'>编剧</span>: <span class='attrs'>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>");
                 movie.movie_WritersId = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class='pl'>编剧</span>: <span class='attrs'>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>", "href=\"/celebrity/", "/\"");
                 temp.Clear();
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
                 foreach (var item in movie.movie_WritersId.Split('/'))
                 {
                     var writer = _db.tbl_Celebrity.SingleOrDefault(c => c.celeb_DoubanID != null && c.celeb_DoubanID == item);
@@ -129,7 +131,8 @@ namespace MovieResources.Helpers
                 movie.movie_Casts = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class=\"actor\"><span class='pl'>主演</span>: <span class='attrs'>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>");
                 movie.movie_CastsId = HtmlDecoder.SplitRegex(HtmlDecoder.CutString(sDivInfo, "<span class=\"actor\"><span class='pl'>主演</span>: <span class='attrs'>", "</span></span><br/>"), "<a[^>]+>([^<]+)</a>", "href=\"/celebrity/", "/\"");
                 temp.Clear();
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
                 foreach (var item in movie.movie_CastsId.Split('/'))
                 {
                     var cast = _db.tbl_Celebrity.SingleOrDefault(c => c.celeb_DoubanID != null && c.celeb_DoubanID == item);
@@ -178,7 +181,8 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static string CreateJson(JObject json, string mappath, string create)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var createMovie = new tbl_Movie();
                 createMovie = MovieManager.JsonToMovie(json, mappath);
@@ -200,9 +204,11 @@ namespace MovieResources.Helpers
                     createMovie.movie_Status = 0;
                 }
 
-                _db.tbl_Movie.InsertOnSubmit(createMovie);
-                _db.SubmitChanges();
-                _db.SetMovieTime(guid);
+                //_db.tbl_Movie.InsertOnSubmit(createMovie);
+                //_db.SubmitChanges();
+                //_db.SetMovieTime(guid);
+                _db.tbl_Movie.Add(createMovie);
+                _db.SaveChanges();
 
                 return createMovie.movie_Id;
             }
@@ -215,7 +221,8 @@ namespace MovieResources.Helpers
         /// <returns>电影id</returns>
         public static string CreateMovie(ManageMovieViewModel movie)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 string guid;
                 do
@@ -261,9 +268,11 @@ namespace MovieResources.Helpers
                     movie_Status = movie.Status,
                     movie_Avatar = movie.Avatar == null ? "Movie_Default.png" : movie.Avatar
                 };
-                _db.tbl_Movie.InsertOnSubmit(createMovie);
-                _db.SubmitChanges();
-                _db.SetMovieTime(guid);
+                //_db.tbl_Movie.InsertOnSubmit(createMovie);
+                //_db.SubmitChanges();
+                //_db.SetMovieTime(guid);
+                _db.tbl_Movie.Add(createMovie);
+                _db.SaveChanges();
 
                 return createMovie.movie_Id;
             }
@@ -275,12 +284,14 @@ namespace MovieResources.Helpers
         /// <param name="id">电影id</param>
         public static void Audit(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Movie movie = _db.tbl_Movie.SingleOrDefault(m => m.movie_Id == id);
                 movie.movie_Status = 2;
 
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -290,12 +301,14 @@ namespace MovieResources.Helpers
         /// <param name="model"></param>
         public static void Reject(RejectViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Movie movie = _db.tbl_Movie.SingleOrDefault(m => m.movie_Id == model.Id);
                 movie.movie_Status = 1;
                 movie.movie_Note = model.Note;
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -305,7 +318,8 @@ namespace MovieResources.Helpers
         /// <param name="movie"></param>
         public static void Edit(ManageMovieViewModel movie)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 bool hasChange = false;
                 var oldMovie = _db.tbl_Movie.SingleOrDefault(p => p.movie_Id == movie.Id);
@@ -417,8 +431,9 @@ namespace MovieResources.Helpers
                 #endregion
                 if (hasChange)
                 {
-                    _db.SubmitChanges();
-                    _db.AlterMovieAlterTime(movie.Id);
+                    //_db.SubmitChanges();
+                    //_db.AlterMovieAlterTime(movie.Id);
+                    _db.SaveChanges();
                 }
             }
         }
@@ -429,11 +444,14 @@ namespace MovieResources.Helpers
         /// <param name="id">电影id</param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Movie movie = _db.tbl_Movie.SingleOrDefault(s => s.movie_Id == id);
-                _db.tbl_Movie.DeleteOnSubmit(movie);
-                _db.SubmitChanges();
+                //_db.tbl_Movie.DeleteOnSubmit(movie);
+                //_db.SubmitChanges();
+                _db.tbl_Movie.Remove(movie);
+                _db.SaveChanges();
             }
         }
 
@@ -444,7 +462,8 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static string GetTitle(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Movie movie = _db.tbl_Movie.SingleOrDefault(s => s.movie_Id == id);
                 if (movie == null)
@@ -464,11 +483,13 @@ namespace MovieResources.Helpers
         /// <param name="id">电影id</param>
         public static void Visit(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Movie movie = _db.tbl_Movie.SingleOrDefault(s => s.movie_Id == id);
                 movie.movie_VisitCount++;
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -479,7 +500,8 @@ namespace MovieResources.Helpers
         /// <param name="douban">影人豆瓣id</param>
         public static void RefreshCeleb(string celeb, string douban)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var movies = _db.tbl_Movie;
 
@@ -499,7 +521,8 @@ namespace MovieResources.Helpers
                     }
                 }
 
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -510,7 +533,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Movie.SingleOrDefault(p => p.movie_Id == id) == null)
                 {

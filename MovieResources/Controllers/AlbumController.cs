@@ -9,7 +9,9 @@ namespace MovieResources.Controllers
 {
     public class AlbumController : Controller
     {
-        private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+
+        MRDataEntities _db = new MRDataEntities();
 
         #region 专辑首页
         //

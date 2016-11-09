@@ -12,10 +12,11 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 资源管理首页
         //
         // GET: /Manage/Res/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Index(string search, int page = 1)
         {
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             var query = from m in _db.tbl_Resource
                         select m;
 
@@ -45,7 +46,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 下载bt种子文件
         //
         // GET: /Manage/DownTorrent/
-        [AdminFilter]
+        [Administrator]
         public ActionResult DownTorrent(string filename)
         {
             var path = Server.MapPath("~/Content/Torrent/" + filename);
@@ -57,7 +58,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 审核用户上传的资源
         //
         // GET: /Manage/Audit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Audit(string id)
         {
             if (!ResManager.Exist(id))
@@ -70,7 +71,7 @@ namespace MovieResources.Areas.Manage.Controllers
 
         //
         // GET: /Manage/Reject/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(string id)
         {
             if (!ResManager.Exist(id))
@@ -85,7 +86,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Reject/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         public ActionResult Reject(RejectResViewModel model)
         {
             if (model.Note == "0")

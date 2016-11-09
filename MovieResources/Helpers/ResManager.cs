@@ -12,7 +12,8 @@ namespace MovieResources.Helpers
         /// <param name="model"></param>
         public static void Create(ManageResViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Resource res = new tbl_Resource()
                 {
@@ -35,9 +36,11 @@ namespace MovieResources.Helpers
                 } while (_db.tbl_Resource.Where(p => p.res_Id == guid).Count() != 0);
                 res.res_Id = guid;
 
-                _db.tbl_Resource.InsertOnSubmit(res);
-                _db.SubmitChanges();
-                _db.SetResTime(guid);
+                //_db.tbl_Resource.InsertOnSubmit(res);
+                //_db.SubmitChanges();
+                //_db.SetResTime(guid);
+                _db.tbl_Resource.Add(res);
+                _db.SaveChanges();
             }
         }
 
@@ -47,11 +50,14 @@ namespace MovieResources.Helpers
         /// <param name="id">资源id</param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Resource res = _db.tbl_Resource.SingleOrDefault(s => s.res_Id == id);
-                _db.tbl_Resource.DeleteOnSubmit(res);
-                _db.SubmitChanges();
+                //_db.tbl_Resource.DeleteOnSubmit(res);
+                //_db.SubmitChanges();
+                _db.tbl_Resource.Remove(res);
+                _db.SaveChanges();
             }
         }
 
@@ -61,12 +67,14 @@ namespace MovieResources.Helpers
         /// <param name="id">资源id</param>
         public static void Audit(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Resource res = _db.tbl_Resource.SingleOrDefault(s => s.res_Id == id);
                 res.res_Status = 2;
 
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -76,12 +84,14 @@ namespace MovieResources.Helpers
         /// <param name="model"></param>
         public static void Reject(RejectResViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Resource res = _db.tbl_Resource.SingleOrDefault(s => s.res_Id == model.Id);
                 res.res_Status = 1;
                 res.res_Note = model.Note;
-                _db.SubmitChanges();
+                //_db.SubmitChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -92,7 +102,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Resource.SingleOrDefault(p => p.res_Id == id) == null)
                 {

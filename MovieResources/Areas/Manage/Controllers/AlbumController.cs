@@ -9,12 +9,14 @@ namespace MovieResources.Areas.Manage.Controllers
 {
     public class AlbumController : Controller
     {
-        MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
+
 
         #region 专辑管理首页
         //
         // GET: /Manage/Album/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Index(string search, int page = 1)
         {
             var query = from a in _db.tbl_Album
@@ -38,7 +40,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 创建专辑
         //
         // GET: /Manage/Create/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Create()
         {
             return View();
@@ -47,7 +49,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Create/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManageAlbumViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -74,7 +76,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 修改专辑
         //
         // GET: /Manage/Edit/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Edit(string id)
         {
             if (!AlbumManager.Exist(id))
@@ -89,7 +91,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Edit/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageAlbumViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -118,7 +120,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 删除专辑
         //
         // GET: /Manage/Delete/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Delete(string id)
         {
             if (!AlbumManager.Exist(id))
@@ -133,7 +135,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // Post: /Manage/Delete/
         [HttpPost, ActionName("Delete")]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id)
         {

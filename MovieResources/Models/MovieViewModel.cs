@@ -136,7 +136,8 @@ namespace MovieResources.Models
             FinishCount = 0;
             FavorCount = 0;
 
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             Directors = new List<LinkItem>();
             if (string.IsNullOrEmpty(movie.movie_DirectorsId))
             {

@@ -9,7 +9,8 @@ namespace MovieResources.Controllers
 {
     public class MovieController : Controller
     {
-        private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //private MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
 
         #region 电影详情页
         ////
@@ -142,7 +143,8 @@ namespace MovieResources.Controllers
                 file.SaveAs(fileName);
                 movie.Avatar = System.IO.Path.GetFileName(file.FileName);
             }
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             if ((bool)_db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name).user_IsAdmin)
             {
                 movie.Status = 2;
@@ -196,7 +198,8 @@ namespace MovieResources.Controllers
             }
             else
             {
-                MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+                MRDataEntities _db = new MRDataEntities();
                 model.Avatar = _db.tbl_Movie.SingleOrDefault(m => m.movie_Id == model.Id).movie_Avatar;
             }
             MovieManager.Edit(model);

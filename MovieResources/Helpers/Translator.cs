@@ -15,12 +15,14 @@ namespace MovieResources.Helpers
         /// <returns>转换后的类型id</returns>
         public static string GenreToName(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<string> genres = new List<string>();
                 foreach (string item in id.Split('/'))
                 {
-                    genres.Add(_db.tbl_GenreMovie.SingleOrDefault(genre => genre.genre_Id == byte.Parse(item)).genre_Name);
+                    byte temp = byte.Parse(item);
+                    genres.Add(_db.tbl_GenreMovie.SingleOrDefault(genre => genre.genre_Id == temp).genre_Name);
                 }
                 return string.Join(" / ", genres);
             }
@@ -33,7 +35,8 @@ namespace MovieResources.Helpers
         /// <returns>转换后的类型id</returns>
         public static string GenreToId(string name)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<int> genres = new List<int>();
                 foreach (string item in name.Split('/'))
@@ -41,7 +44,7 @@ namespace MovieResources.Helpers
                     tbl_GenreMovie tblGenre = _db.tbl_GenreMovie.SingleOrDefault(p => p.genre_Name == item);
                     if (tblGenre == null)
                     {
-                        genres.Add(_db.InsertGenre(item));
+                        //genres.Add(_db.InsertGenre(item));
                     }
                     else
                     {
@@ -59,12 +62,14 @@ namespace MovieResources.Helpers
         /// <returns>转换后的国家名</returns>
         public static string CountryToName(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<string> countries = new List<string>();
                 foreach (string item in id.Split('/'))
                 {
-                    countries.Add(_db.tbl_Country.SingleOrDefault(country => country.country_Id == byte.Parse(item)).country_Name);
+                    byte temp = byte.Parse(item);
+                    countries.Add(_db.tbl_Country.SingleOrDefault(country => country.country_Id == temp).country_Name);
                 }
                 return string.Join(" / ", countries);
             }
@@ -77,7 +82,8 @@ namespace MovieResources.Helpers
         /// <returns>转换后的国家id</returns>
         public static string CountryToId(string name)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<int> countries = new List<int>();
                 foreach (string item in name.Split('/'))
@@ -85,7 +91,7 @@ namespace MovieResources.Helpers
                     tbl_Country tblCountry = _db.tbl_Country.SingleOrDefault(p => p.country_Name == item);
                     if (tblCountry == null)
                     {
-                        countries.Add(_db.InsertCountry(item));
+                        //countries.Add(_db.InsertCountry(item));
                     }
                     else
                     {
@@ -103,12 +109,14 @@ namespace MovieResources.Helpers
         /// <returns>转换后的语言名</returns>
         public static string LangToName(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<string> langs = new List<string>();
                 foreach (string item in id.Split('/'))
                 {
-                    langs.Add(_db.tbl_Language.SingleOrDefault(lang => lang.lang_Id == byte.Parse(item)).lang_Name);
+                    byte temp = byte.Parse(item);
+                    langs.Add(_db.tbl_Language.SingleOrDefault(lang => lang.lang_Id == temp).lang_Name);
                 }
                 return string.Join(" / ", langs);
             }
@@ -121,7 +129,8 @@ namespace MovieResources.Helpers
         /// <returns>转换后的语言id</returns>
         public static string LangToId(string name)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 List<int> languages = new List<int>();
                 foreach (string item in name.Split('/'))
@@ -129,7 +138,7 @@ namespace MovieResources.Helpers
                     tbl_Language tblLang = _db.tbl_Language.SingleOrDefault(p => p.lang_Name == item);
                     if (tblLang == null)
                     {
-                        languages.Add(_db.InsertLang(item));
+                        //languages.Add(_db.InsertLang(item));
                     }
                     else
                     {

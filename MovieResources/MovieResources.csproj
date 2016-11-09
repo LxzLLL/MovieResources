@@ -184,6 +184,21 @@
     <Compile Include="Helpers\MovieManager.cs" />
     <Compile Include="Helpers\PageTagList.cs" />
     <Compile Include="Helpers\ResManager.cs" />
+    <Compile Include="Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AlbumViewModel.cs" />
     <Compile Include="Models\AskViewModel.cs" />
     <Compile Include="Models\CelebViewModel.cs" />
@@ -202,12 +217,64 @@
     <Compile Include="Helpers\AccountManager.cs" />
     <Compile Include="Models\MineViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
-    <Compile Include="MR_DataClasses.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MR_DataClasses.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tbl_Album.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Ask.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Celebrity.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Comment.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Country.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Discovery.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_FavorRes.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_FollowAlbum.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_GenreMovie.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Language.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Mark.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_MarkCeleb.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_MarkMovie.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Movie.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Notice.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Resource.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_UserAccount.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_WithAsk.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Work.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\MRData.mdf" />
@@ -222,42 +289,43 @@
     <Content Include="Content\Icon\Gray.png" />
     <Content Include="Content\Icon\Icon.ico" />
     <Content Include="Content\User\Avatar\User_1.jpg" />
-    <Content Include="Resources\Fonts\font-awesome\fontawesome-webfont.svg" />
-    <Content Include="Resources\Fonts\glyphicons\glyphicons-halflings-regular.svg" />
-    <Content Include="Resources\Scripts\backstrech\jquery.backstrech.min.js" />
-    <Content Include="Resources\Scripts\smoothscroll\jquery.smooth-scroll.js" />
-    <Content Include="Resources\Scripts\thumbnailscroller\jquery.mThumbnailScroller.js" />
-    <Content Include="Resources\Styles\font-awesome.css" />
-    <Content Include="Resources\Styles\font-awesome.min.css" />
-    <Content Include="Resources\Styles\jquery.mThumbnailScroller.css" />
+    <Content Include="Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
+    <Content Include="Resources\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Resources\bootstrap\glyphicons\glyphicons-halflings-regular.svg" />
+    <Content Include="Resources\bootstrap\respond.js" />
+    <Content Include="Resources\jquery\modernizr-2.6.2.js" />
+    <Content Include="Resources\smooth-scroll\jquery.smooth-scroll.js" />
+    <Content Include="Resources\thumbnailscroller\jquery.mThumbnailScroller.js" />
+    <Content Include="Resources\font-awesome\font-awesome.css" />
+    <Content Include="Resources\thumbnailscroller\jquery.mThumbnailScroller.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Resources\Scripts\bootstrap.js" />
-    <Content Include="Resources\Scripts\bootstrap.min.js" />
-    <Content Include="Resources\Styles\bootstrap.css" />
-    <Content Include="Resources\Styles\bootstrap.min.css" />
-    <Content Include="Resources\Styles\Custom.css" />
+    <Content Include="Resources\bootstrap\bootstrap.js" />
+    <Content Include="Resources\bootstrap\bootstrap.css" />
+    <Content Include="Resources\Custom.css" />
     <Content Include="Content\Movie\Movie_Default.png" />
     <Content Include="Global.asax" />
-    <Content Include="Resources\Styles\Site.css" />
-    <Content Include="Resources\Fonts\glyphicons\glyphicons-halflings-regular.woff2" />
-    <Content Include="Resources\Fonts\glyphicons\glyphicons-halflings-regular.woff" />
-    <Content Include="Resources\Fonts\glyphicons\glyphicons-halflings-regular.ttf" />
-    <Content Include="Resources\Fonts\glyphicons\glyphicons-halflings-regular.eot" />
-    <Content Include="Resources\Fonts\方正清刻本悦宋简体.TTF" />
-    <Content Include="MR_DataClasses.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>MR_DataClasses.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Resources\Scripts\jquery-2.2.1.js" />
-    <Content Include="Resources\Scripts\jquery-2.2.1.min.js" />
-    <Content Include="Resources\Scripts\jquery-2.2.1.min.map" />
-    <Content Include="Resources\Fonts\font-awesome\fontawesome-webfont.eot" />
-    <Content Include="Resources\Fonts\font-awesome\fontawesome-webfont.ttf" />
-    <Content Include="Resources\Fonts\font-awesome\fontawesome-webfont.woff" />
-    <Content Include="Resources\Fonts\font-awesome\fontawesome-webfont.woff2" />
-    <Content Include="Resources\Fonts\font-awesome\FontAwesome.otf" />
-    <Content Include="Resources\Fonts\Weston Free.otf" />
+    <Content Include="Resources\Site.css" />
+    <Content Include="Resources\bootstrap\glyphicons\glyphicons-halflings-regular.woff2" />
+    <Content Include="Resources\bootstrap\glyphicons\glyphicons-halflings-regular.woff" />
+    <Content Include="Resources\bootstrap\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="Resources\bootstrap\glyphicons\glyphicons-halflings-regular.eot" />
+    <Content Include="Resources\fonts\方正清刻本悦宋简体.TTF" />
+    <Content Include="Resources\jquery\jquery-2.2.1.js" />
+    <Content Include="Resources\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Resources\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Resources\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Resources\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Resources\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Resources\fonts\Weston Free.otf" />
     <Content Include="Areas\Manage\Views\web.config" />
     <Content Include="Areas\Manage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Manage\Views\Movie\Index.cshtml" />
@@ -284,15 +352,15 @@
     <Content Include="Areas\Manage\Views\Disc\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Res\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Res\Reject.cshtml" />
-    <None Include="Resources\Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Resources\Scripts\jquery.validate.js" />
-    <Content Include="Resources\Scripts\jquery.validate.min.js" />
-    <Content Include="Resources\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Resources\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Resources\Scripts\modernizr-2.6.2.js" />
-    <Content Include="Resources\Scripts\respond.js" />
-    <Content Include="Resources\Scripts\respond.min.js" />
-    <Content Include="Resources\Scripts\_references.js" />
+    <EntityDeploy Include="Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Resources\backstrech\jquery.backstrech.js" />
+    <Content Include="Resources\jquery\jquery.validate.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -365,11 +433,7 @@
     <Folder Include="Content\Torrent\" />
     <Folder Include="Content\User\Cover\" />
     <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MR_DataClasses.dbml.layout">
-      <DependentUpon>MR_DataClasses.dbml</DependentUpon>
-    </None>
+    <Folder Include="Resources\Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

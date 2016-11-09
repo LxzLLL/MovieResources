@@ -13,7 +13,8 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static string Create(ManageDiscViewModel model)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 tbl_Discovery disc = new tbl_Discovery()
                 {
@@ -29,9 +30,11 @@ namespace MovieResources.Helpers
                 disc.disc_Id = guid;
                 disc.disc_Flag = _db.tbl_Discovery.OrderByDescending(d => d.disc_Flag).ToList()[0].disc_Flag + 1;
 
-                _db.tbl_Discovery.InsertOnSubmit(disc);
-                _db.SubmitChanges();
-                _db.SetDiscTime(guid);
+                //_db.tbl_Discovery.InsertOnSubmit(disc);
+                //_db.SubmitChanges();
+                //_db.SetDiscTime(guid);
+                _db.tbl_Discovery.Add(disc);
+                _db.SaveChanges();
 
                 return disc.disc_Id;
             }
@@ -43,12 +46,15 @@ namespace MovieResources.Helpers
         /// <param name="id">电影id</param>
         public static void Delete(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 var disc = _db.tbl_Discovery.SingleOrDefault(a => a.disc_Id == id);
 
-                _db.tbl_Discovery.DeleteOnSubmit(disc);
-                _db.SubmitChanges();
+                //_db.tbl_Discovery.DeleteOnSubmit(disc);
+                //_db.SubmitChanges();
+                _db.tbl_Discovery.Remove(disc);
+                _db.SaveChanges();
             }
         }
 
@@ -59,7 +65,8 @@ namespace MovieResources.Helpers
         /// <returns>存在true，不存在false</returns>
         public static bool Exist(string id)
         {
-            using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
+            using (MRDataEntities _db = new MRDataEntities())
             {
                 if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || _db.tbl_Discovery.SingleOrDefault(p => p.disc_Id == id) == null)
                 {

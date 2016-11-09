@@ -9,12 +9,13 @@ namespace MovieResources.Areas.Manage.Controllers
 {
     public class DiscController : Controller
     {
-        MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+        MRDataEntities _db = new MRDataEntities();
 
         #region 每日发现管理首页
         //
         // GET: /Manage/Disc/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Index(int page = 1)
         {
             var query = from m in _db.tbl_Discovery
@@ -33,7 +34,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 添加每日发现电影
         //
         // GET: /Manage/Create/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Create()
         {
             return View();
@@ -42,7 +43,7 @@ namespace MovieResources.Areas.Manage.Controllers
         //
         // POST: /Manage/Create/
         [HttpPost]
-        [AdminFilter]
+        [Administrator]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManageDiscViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -69,7 +70,7 @@ namespace MovieResources.Areas.Manage.Controllers
         #region 删除每日发现电影
         //
         // GET: /Manage/Delete/
-        [AdminFilter]
+        [Administrator]
         public ActionResult Delete(string id)
         {
             if (!DiscManager.Exist(id))

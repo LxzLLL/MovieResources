@@ -32,7 +32,8 @@ namespace MovieResources.Models
         {
             Id = ask.ask_Id;
             MovieId = ask.ask_Movie;
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             tbl_Movie tblmovie = _db.tbl_Movie.SingleOrDefault(m => m.movie_Id == ask.ask_Movie);
             Movie = new MovieViewModel(tblmovie);
             Note = ask.ask_Note;

@@ -12,7 +12,8 @@ namespace MovieResources.Controllers
         // GET: /Search/
         public ActionResult Index(string search, string genre = "0", string country = "0", string year = "0", int page = 1)
         {
-            MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
+            MRDataEntities _db = new MRDataEntities();
             ClassifyViewModel movieGroup = new ClassifyViewModel();
             var filterMovie = from m in _db.tbl_Movie
                               where m.movie_Status == 2
