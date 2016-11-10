@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using System.Web.Mvc;
 
 namespace MovieResources.Controllers
@@ -7,7 +8,7 @@ namespace MovieResources.Controllers
     {
         //
         // GET: /Mark/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create(string target, int type, string returnurl)
         {
             if (type<=0||type>=7)
@@ -52,16 +53,16 @@ namespace MovieResources.Controllers
                     }
                 }
             }
-            if (User.Identity.Name != null)
+            if (CookieHepler.GetCookie("user") != null)
             {
-                MarkManager.Create(target, AccountManager.GetId(User.Identity.Name), type);
+                MarkManager.Create(target, AccountManager.GetId(CookieHepler.GetCookie("user")), type);
             }
             return Redirect(returnurl);
         }
 
         //
         // GET: /Mark/Cancel/
-        [Authorize]
+        [Signedin]
         public ActionResult Cancel(string target, int type, string returnurl)
         {
             if (type <= 0 || type >= 7)
@@ -106,9 +107,9 @@ namespace MovieResources.Controllers
                     }
                 }
             }
-            if (User.Identity.Name != null)
+            if (CookieHepler.GetCookie("user") != null)
             {
-                MarkManager.Cancel(target, AccountManager.GetId(User.Identity.Name), type);
+                MarkManager.Cancel(target, AccountManager.GetId(CookieHepler.GetCookie("user")), type);
             }
             return Redirect(returnurl);
         }

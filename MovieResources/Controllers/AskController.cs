@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using System.Linq;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace MovieResources.Controllers
                 AskViewModel ask = new AskViewModel(item);
                 if (User.Identity.IsAuthenticated)
                 {
-                    string user = AccountManager.GetId(User.Identity.Name);
+                    string user = AccountManager.GetId(CookieHepler.GetCookie("user"));
                     if ((item.ask_User == user) || (_db.tbl_Mark.SingleOrDefault(w => w.mark_User == user && w.mark_Target == item.ask_Id && w.mark_Type == 6) != null))
                     {
                         ask.hadWith = true;
@@ -55,7 +56,7 @@ namespace MovieResources.Controllers
         #region 创建求资源
         //
         // GET: /Ask/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create(string id)
         {
             if (!MovieManager.Exist(id))
@@ -69,13 +70,13 @@ namespace MovieResources.Controllers
         //
         // POST: /Ask/Create/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManageAskViewModel model)
         {
             if (!string.IsNullOrEmpty(model.Note) && !string.IsNullOrWhiteSpace(model.Note))
             {
-                var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name);
+                var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == CookieHepler.GetCookie("user"));
                 model.User = user.user_Id;
                 AskManager.Create(model);
                 return RedirectToAction("Index", "Movie", new { id = model.MovieId });
@@ -91,7 +92,7 @@ namespace MovieResources.Controllers
         #region 删除求资源
         //
         // GET: /Ask/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             if (!AskManager.Exist(id))
@@ -99,7 +100,7 @@ namespace MovieResources.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
-            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == User.Identity.Name).user_Id;
+            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
             var favor = _db.tbl_Ask.SingleOrDefault(m => m.ask_Id == id && m.ask_User == user);
             if (favor != null)
             {
@@ -112,14 +113,14 @@ namespace MovieResources.Controllers
         #region 已求到
         //
         // GET: /Ask/Over/
-        [Authorize]
+        [Signedin]
         public ActionResult Over(string id, string returnUrl)
         {
             if (!AskManager.Exist(id))
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            string user = AccountManager.GetId(User.Identity.Name);
+            string user = AccountManager.GetId(CookieHepler.GetCookie("user"));
 
             if (_db.tbl_Mark.SingleOrDefault(w => w.mark_Target == id && w.mark_User == user && w.mark_Type == 6) == null)
             {

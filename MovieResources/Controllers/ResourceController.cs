@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ namespace MovieResources.Controllers
         #region 创建资源
         //
         // GET: /Resource/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create(string id)
         {
             if (!MovieManager.Exist(id))
@@ -27,7 +28,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Resource/Create/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManageResViewModel model)
         {
@@ -35,7 +36,7 @@ namespace MovieResources.Controllers
             {
                 model.Content = System.Web.HttpUtility.UrlDecode(model.Content);
 
-                var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name);
+                var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == CookieHepler.GetCookie("user"));
                 if ((bool)user.user_IsAdmin)
                 {
                     model.Status = 2;
@@ -72,7 +73,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Resource/CreateTorrent/
-        [Authorize]
+        [Signedin]
         public ActionResult CreateTorrent(string id)
         {
             if (!MovieManager.Exist(id))
@@ -86,7 +87,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Resource/CreateTorrent/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult CreateTorrent(ManageResViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -104,7 +105,7 @@ namespace MovieResources.Controllers
                     model.Content = System.IO.Path.GetFileName(file.FileName);
                     model.ResType = 2;
 
-                    var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name);
+                    var user = _db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == CookieHepler.GetCookie("user"));
                     if ((bool)user.user_IsAdmin)
                     {
                         model.Status = 2;
@@ -134,7 +135,7 @@ namespace MovieResources.Controllers
         #region 删除资源
         //
         // GET: /Resource/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -142,7 +143,7 @@ namespace MovieResources.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
-            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == User.Identity.Name).user_Id;
+            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
             var favor = _db.tbl_Resource.SingleOrDefault(m => m.res_Id == id && m.res_User == user);
             if (favor != null)
             {
@@ -157,7 +158,7 @@ namespace MovieResources.Controllers
         #region 点赞资源
         //
         // GET: /Resource/Favor/
-        [Authorize]
+        [Signedin]
         public ActionResult Favor(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -165,7 +166,7 @@ namespace MovieResources.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
-            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == User.Identity.Name).user_Id;
+            var user = _db.tbl_UserAccount.SingleOrDefault(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
             var favor = _db.tbl_Mark.SingleOrDefault(m => m.mark_Target == id && m.mark_User == user);
             if (favor != null)
             {

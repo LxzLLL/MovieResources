@@ -148,7 +148,7 @@ namespace MovieResources.Areas.Manage.Controllers
                 else
                 {
                     ModelState.AddModelError("", string.Format("{0}{1}{2}", "添加编号为", item, "的影人 成功"));
-                    CelebManager.CreateJson(json, Server.MapPath("~/Content/Celeb/"), AccountManager.GetId(User.Identity.Name));
+                    CelebManager.CreateJson(json, Server.MapPath("~/Content/Celeb/"), AccountManager.GetId(CookieHepler.GetCookie("user")));
                 }
             }
             return View();

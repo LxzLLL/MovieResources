@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using System.Web.Mvc;
 
 namespace MovieResources.Controllers
@@ -8,12 +9,12 @@ namespace MovieResources.Controllers
         #region 创建评论
         //
         // GET: /Comment/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create(string content, string movie, string returnurl)
         {
             if (!string.IsNullOrEmpty(content) && MovieManager.Exist(movie) && User.Identity.IsAuthenticated)
             {
-                CommentManager.Create(content, movie, AccountManager.GetId(User.Identity.Name));
+                CommentManager.Create(content, movie, AccountManager.GetId(CookieHepler.GetCookie("user")));
             }
             return RedirectToLocal(returnurl);
         }
@@ -22,7 +23,7 @@ namespace MovieResources.Controllers
         #region 删除评论
         //
         // GET: /Comment/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();

@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace MovieResources.Controllers
         #region 新建专辑
         //
         // GET: /Album/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create()
         {
             return View();
@@ -41,7 +42,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Album/Create/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManageAlbumViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -59,7 +60,7 @@ namespace MovieResources.Controllers
             {
                 model.Cover = "Album_1.jpg";
             }
-            model.UserId = AccountManager.GetId(User.Identity.Name);
+            model.UserId = AccountManager.GetId(CookieHepler.GetCookie("user"));
             model.Id = AlbumManager.Create(model);
             return RedirectToAction("Detail", new { id = model.Id });
         }
@@ -77,13 +78,13 @@ namespace MovieResources.Controllers
 
             tbl_Album tblalbum = _db.tbl_Album.SingleOrDefault(s => s.album_Id == id);
             AlbumViewModel album = new AlbumViewModel(tblalbum);
-            if (tblalbum.album_User == AccountManager.GetId(User.Identity.Name))
+            if (tblalbum.album_User == AccountManager.GetId(CookieHepler.GetCookie("user")))
             {
                 album.IsCreator = true;
             }
             if (User.Identity.IsAuthenticated)
             {
-                if (_db.tbl_Mark.SingleOrDefault(f => f.mark_Target == id && f.mark_User == AccountManager.GetId(User.Identity.Name) && f.mark_Type == 7) != null)
+                if (_db.tbl_Mark.SingleOrDefault(f => f.mark_Target == id && f.mark_User == AccountManager.GetId(CookieHepler.GetCookie("user")) && f.mark_Type == 7) != null)
                 {
                     album.HasFollow = true;
                 }
@@ -115,7 +116,7 @@ namespace MovieResources.Controllers
         #region 修改专辑
         //
         // GET: /Album/Edit/
-        [Authorize]
+        [Signedin]
         public ActionResult Edit(string id)
         {
             if (!AlbumManager.Exist(id))
@@ -129,7 +130,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Album/Edit/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageAlbumViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -158,7 +159,7 @@ namespace MovieResources.Controllers
         #region 删除专辑
         //
         // GET: /Album/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             if (!AlbumManager.Exist(id))
@@ -173,7 +174,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Album/Delete/
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id)
         {
@@ -203,7 +204,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Album/AddItem/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         public ActionResult AddItem(string id, string movie, string note, string returnurl)
         {
             AlbumItemViewModel item = new AlbumItemViewModel();
@@ -216,7 +217,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Album/AddItem/
-        [Authorize]
+        [Signedin]
         public ActionResult DeleteItem(string id, string movie, string returnurl)
         {
             if (!AlbumManager.Exist(id))

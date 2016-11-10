@@ -39,9 +39,9 @@ namespace MovieResources.Controllers
             foreach (var item in filterMovie)
             {
                 MovieViewModel movie = new MovieViewModel(item);
-                movie.IsPlan = MarkManager.Validate(item.movie_Id, AccountManager.GetId(User.Identity.Name), 1);
-                movie.IsFinish = MarkManager.Validate(item.movie_Id, AccountManager.GetId(User.Identity.Name), 2);
-                movie.IsFavor = MarkManager.Validate(item.movie_Id, AccountManager.GetId(User.Identity.Name), 3);
+                movie.IsPlan = MarkManager.Validate(item.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                movie.IsFinish = MarkManager.Validate(item.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                movie.IsFavor = MarkManager.Validate(item.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
                 movieGroup.listMovies.Add(movie);
             }
             movieGroup.Count = movieGroup.listMovies.Count();

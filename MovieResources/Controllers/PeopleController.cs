@@ -31,7 +31,7 @@ namespace MovieResources.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string userid = AccountManager.GetId(User.Identity.Name);
+                string userid = AccountManager.GetId(CookieHepler.GetCookie("user"));
                 if (userid == id)
                 {
                     return RedirectToAction("Index", "Mine");

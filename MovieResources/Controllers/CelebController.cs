@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using Newtonsoft.Json.Linq;
 using System.Linq;
@@ -25,11 +26,11 @@ namespace MovieResources.Controllers
 
         //    if (User.Identity.IsAuthenticated)
         //    {
-        //        celeb.IsCollect = MarkManager.Validate(tblCeleb.celeb_Id, AccountManager.GetId(User.Identity.Name), 4);
+        //        celeb.IsCollect = MarkManager.Validate(tblCeleb.celeb_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 4);
 
         //        celeb.CollectCount = _db.tbl_Mark.Where(m => m.mark_Target == id && m.mark_Type == 4).Count();
 
-        //        if (tblCeleb.celeb_Create == AccountManager.GetId(User.Identity.Name) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == User.Identity.Name).user_IsAdmin)
+        //        if (tblCeleb.celeb_Create == AccountManager.GetId(CookieHepler.GetCookie("user")) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == CookieHepler.GetCookie("user")).user_IsAdmin)
         //        {
         //            celeb.IsCreate = true;
         //        }
@@ -47,11 +48,11 @@ namespace MovieResources.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                celeb.IsCollect = MarkManager.Validate(tblCeleb.celeb_Id, AccountManager.GetId(User.Identity.Name), 4);
+                celeb.IsCollect = MarkManager.Validate(tblCeleb.celeb_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 4);
 
                 celeb.CollectCount = _db.tbl_Mark.Where(m => m.mark_Target == id && m.mark_Type == 4).Count();
 
-                if (tblCeleb.celeb_Create == AccountManager.GetId(User.Identity.Name) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == User.Identity.Name).user_IsAdmin)
+                if (tblCeleb.celeb_Create == AccountManager.GetId(CookieHepler.GetCookie("user")) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == CookieHepler.GetCookie("user")).user_IsAdmin)
                 {
                     celeb.IsCreate = true;
                 }
@@ -63,7 +64,7 @@ namespace MovieResources.Controllers
         #region 创建影人
         //
         // GET: /Celeb/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create()
         {
             return View();
@@ -72,7 +73,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Celeb/Create/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateCelebViewModel celeb)
         {
@@ -93,7 +94,7 @@ namespace MovieResources.Controllers
                 else
                 {
                     ModelState.AddModelError("", string.Format("{0}{1}{2}", "添加编号为", item, "的影人 成功"));
-                    CelebManager.CreateJson(json, Server.MapPath("~/Content/Celeb/"), AccountManager.GetId(User.Identity.Name));
+                    CelebManager.CreateJson(json, Server.MapPath("~/Content/Celeb/"), AccountManager.GetId(CookieHepler.GetCookie("user")));
                 }
             }
             return View();
@@ -101,7 +102,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Celeb/CreateCeleb/
-        [Authorize]
+        [Signedin]
         public ActionResult CreateCeleb()
         {
             return View();
@@ -110,7 +111,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Celeb/CreateCeleb/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCeleb(ManageCelebViewModel celeb, System.Web.HttpPostedFileBase file)
         {
@@ -124,7 +125,7 @@ namespace MovieResources.Controllers
                 file.SaveAs(fileName);
                 celeb.Avatar = System.IO.Path.GetFileName(file.FileName);
             }
-            if ((bool)_db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name).user_IsAdmin)
+            if ((bool)_db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == CookieHepler.GetCookie("user")).user_IsAdmin)
             {
                 celeb.Status = 2;
             }
@@ -132,7 +133,7 @@ namespace MovieResources.Controllers
             {
                 celeb.Status = 0;
             }
-            celeb.Create = AccountManager.GetId(User.Identity.Name);
+            celeb.Create = AccountManager.GetId(CookieHepler.GetCookie("user"));
             string newId = CelebManager.CreateCeleb(celeb);
             return RedirectToAction("Edit", new { id = newId });
         }
@@ -141,7 +142,7 @@ namespace MovieResources.Controllers
         #region 修改影人
         //
         // GET: /Celeb/Edit/
-        [Authorize]
+        [Signedin]
         public ActionResult Edit(string id)
         {
             if (!CelebManager.Exist(id))
@@ -156,7 +157,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Celeb/Edit/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageCelebViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -184,7 +185,7 @@ namespace MovieResources.Controllers
         #region 删除影人
         //
         // GET: /Celeb/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             if (!CelebManager.Exist(id))
@@ -205,7 +206,7 @@ namespace MovieResources.Controllers
         //
         // Post: /Celeb/Delete/
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id, string returnurl)
         {
@@ -227,7 +228,7 @@ namespace MovieResources.Controllers
         #region 更新影人
         //
         // GET: /Celeb/Refresh/
-        [Authorize]
+        [Signedin]
         public ActionResult Refresh(string id)
         {
             if (!CelebManager.Exist(id))
@@ -260,7 +261,7 @@ namespace MovieResources.Controllers
         //
         // Post: /Celeb/Refresh/
         [HttpPost, ActionName("Refresh")]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult RefreshConfirm(string id)
         {
@@ -295,9 +296,9 @@ namespace MovieResources.Controllers
                 for (int i = 0; i < celeb.Works.Count(); i++)
                 {
                     MovieViewModel movie = celeb.Works[i].Work;
-                    celeb.Works[i].Work.IsPlan = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(User.Identity.Name), 1);
-                    celeb.Works[i].Work.IsFinish = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(User.Identity.Name), 2);
-                    celeb.Works[i].Work.IsFavor = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(User.Identity.Name), 3);
+                    celeb.Works[i].Work.IsPlan = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                    celeb.Works[i].Work.IsFinish = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                    celeb.Works[i].Work.IsFavor = MarkManager.Validate(celeb.Works[i].Work.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
                 }
             }
             return View(celeb);

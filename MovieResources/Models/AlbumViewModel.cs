@@ -158,7 +158,8 @@ namespace MovieResources.Models
             Id = album.album_Id;
             Title = album.album_Title;
             Summary = album.album_Summary;
-            if (!AccountManager.IsAdmin(album.album_User))
+            //if (!AccountManager.IsAdmin(album.album_User))
+            if (!AccountManager.CheckAdmin(album.album_User))
             {
                 UserId = album.album_User;
                 UserAccount = AccountManager.GetAccount(album.album_User);

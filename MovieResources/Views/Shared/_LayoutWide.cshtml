@@ -106,7 +106,7 @@
                     {
                         <li>@Html.ActionLink("专辑", "Index", "Album")</li>
                     }
-                    @if (User.Identity.IsAuthenticated)
+                    @if (MovieResources.Helpers.CookieHepler.HasCookie("user"))
                     {
                         if (ViewBag.NavType == 5)
                         {

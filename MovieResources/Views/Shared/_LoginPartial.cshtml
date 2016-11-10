@@ -13,7 +13,7 @@
 </style>
 
 @*@if (Request.IsAuthenticated)*@
-@if (MovieResources.Helpers.CookieHepler.HasValue("user"))
+@if (MovieResources.Helpers.CookieHepler.HasCookie("user"))
 {
     using (Html.BeginForm("LogOff", "Account", new { returnUrl = Request.Url }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {

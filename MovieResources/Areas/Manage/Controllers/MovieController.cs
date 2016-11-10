@@ -150,7 +150,7 @@ namespace MovieResources.Areas.Manage.Controllers
                 else
                 {
                     ModelState.AddModelError("", string.Format("{0} {1} {2}", "添加编号为", item, "的电影 成功"));
-                    MovieManager.CreateJson(json, Server.MapPath("~/Content/Movie/"), AccountManager.GetId(User.Identity.Name));
+                    MovieManager.CreateJson(json, Server.MapPath("~/Content/Movie/"), AccountManager.GetId(CookieHepler.GetCookie("user")));
                 }
             }
             return View();
@@ -181,7 +181,7 @@ namespace MovieResources.Areas.Manage.Controllers
                 file.SaveAs(fileName);
                 movie.Avatar = System.IO.Path.GetFileName(file.FileName);
             }
-            movie.Create = AccountManager.GetId(User.Identity.Name);
+            movie.Create = AccountManager.GetId(CookieHepler.GetCookie("user"));
             movie.Status = 2;
             string newId = MovieManager.CreateMovie(movie);
             return RedirectToAction("Edit", new { id = newId });

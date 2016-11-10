@@ -27,9 +27,9 @@ namespace MovieResources.Controllers
             model.Discovery.Pre = offset + 1;
             if (User.Identity.IsAuthenticated)
             {
-                model.Discovery.Movie.IsPlan = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(User.Identity.Name), 1);
-                model.Discovery.Movie.IsFinish = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(User.Identity.Name), 2);
-                model.Discovery.Movie.IsFavor = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(User.Identity.Name), 3);
+                model.Discovery.Movie.IsPlan = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                model.Discovery.Movie.IsFinish = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                model.Discovery.Movie.IsFavor = MarkManager.Validate(model.Discovery.Movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
             }
 
             var newmovie = _db.tbl_Movie.Where(m => m.movie_Status == 2).OrderByDescending(m => m.movie_Time).ToList().Take(20);

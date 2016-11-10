@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace MovieResources.Controllers
         #region 用户主页
         //
         // GET: /Mine/Index/
-        [Authorize]
+        [Signedin]
         public ActionResult Index()
         {
             MineViewModel model = new MineViewModel();
-            model.Account = User.Identity.Name;
+            model.Account = CookieHepler.GetCookie("user");//CookieHepler.GetCookie("user") 
             model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Avatar;
             model.Cover = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Cover;
             model.Id = AccountManager.GetId(model.Account);
@@ -118,11 +119,11 @@ namespace MovieResources.Controllers
         #region 用户基本信息修改
         //
         // GET: /Mine/ChangeAvatar/
-        [Authorize]
+        [Signedin]
         public ActionResult ChangeAvatar()
         {
             ChangeAvatarViewModel model = new ChangeAvatarViewModel();
-            model.Account = User.Identity.Name;
+            model.Account = CookieHepler.GetCookie("user");//CookieHepler.GetCookie("user") 
             model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Avatar;
 
             return View(model);
@@ -130,7 +131,7 @@ namespace MovieResources.Controllers
 
         //
         // POST: /Mine/ChangeAvatar/
-        [Authorize]
+        [Signedin]
         [HttpPost]
         public ActionResult ChangeAvatar(ChangeAvatarViewModel model, HttpPostedFileBase file)
         {
@@ -139,14 +140,16 @@ namespace MovieResources.Controllers
                 return View(model);
             }
 
-            model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Id;
+            //model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
+            model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
 
             if (file != null && file.ContentLength > 0)
             {
                 var fileName = System.IO.Path.Combine(Request.MapPath("~/Content/User/Avatar/"), model.Id + System.IO.Path.GetFileName(file.FileName));
                 file.SaveAs(fileName);
                 model.Avatar = model.Id + System.IO.Path.GetFileName(file.FileName);
-                string oldAvatar = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Avatar;
+                //string oldAvatar = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
+                string oldAvatar = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
                 if (model.Avatar != oldAvatar && oldAvatar != "User_1.jpg")
                 {
                     ImageManager.Delete(Server.MapPath("~/Content/User/Avatar/" + oldAvatar));
@@ -155,7 +158,8 @@ namespace MovieResources.Controllers
             else
             {
                 ModelState.AddModelError("", "请选择一张图片");
-                model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Avatar;
+                //model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
+                model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
                 return View(model);
             }
             var result = AccountManager.ChangeAvatar(model);
@@ -169,11 +173,12 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/ChangePassword/
-        [Authorize]
+        [Signedin]
         public ActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
-            model.Account = User.Identity.Name;
+            //model.Account = CookieHepler.GetCookie("user");
+            model.Account = CookieHepler.GetCookie("user");
             model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Avatar;
             return View(model);
         }
@@ -181,7 +186,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Mine/ChangePassword/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
@@ -189,10 +194,11 @@ namespace MovieResources.Controllers
             {
                 return View(model);
             }
-            var result = AccountManager.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+            //var result = AccountManager.ChangePassword(CookieHepler.GetCookie("user"), model.OldPassword, model.NewPassword);
+            var result = AccountManager.ChangePassword(CookieHepler.GetCookie("user"), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                //AccountManager.SignIn(User.Identity.Name);
+                //AccountManager.SignIn(CookieHepler.GetCookie("user"));
                 AccountManager.SignInWithCookie();
             }
             ModelState.AddModelError("", result.Error);
@@ -201,11 +207,12 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/ChangeCover/
-        [Authorize]
+        [Signedin]
         public ActionResult ChangeCover()
         {
             ChangeCoverViewModel model = new ChangeCoverViewModel();
-            model.Account = User.Identity.Name;
+            //model.Account = CookieHepler.GetCookie("user");
+            model.Account = CookieHepler.GetCookie("user");
             model.Cover = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Cover;
             model.Avatar = _db.tbl_UserAccount.Single(m => m.user_Account == model.Account).user_Avatar;
 
@@ -214,7 +221,7 @@ namespace MovieResources.Controllers
 
         //
         // POST: /Mine/ChangeCover/
-        [Authorize]
+        [Signedin]
         [HttpPost]
         public ActionResult ChangeCover(ChangeCoverViewModel model, HttpPostedFileBase file)
         {
@@ -223,14 +230,16 @@ namespace MovieResources.Controllers
                 return View(model);
             }
 
-            model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Id;
+            //model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
+            model.Id = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Id;
 
             if (file != null && file.ContentLength > 0)
             {
                 var fileName = System.IO.Path.Combine(Request.MapPath("~/Content/User/Cover/"), model.Id + System.IO.Path.GetFileName(file.FileName));
                 file.SaveAs(fileName);
                 model.Cover = model.Id + System.IO.Path.GetFileName(file.FileName);
-                string oldCover = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Cover;
+                //string oldCover = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Cover;
+                string oldCover = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Cover;
                 if (model.Cover != oldCover && oldCover != "Cover_1.jpg" && oldCover != "Cover_2.jpg")
                 {
                     ImageManager.Delete(Server.MapPath("~/Content/User/Cover/" + oldCover));
@@ -239,7 +248,8 @@ namespace MovieResources.Controllers
             else
             {
                 ModelState.AddModelError("", "请选择一张图片");
-                model.Cover = _db.tbl_UserAccount.Single(m => m.user_Account == User.Identity.Name).user_Avatar;
+                //model.Cover = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
+                model.Cover = _db.tbl_UserAccount.Single(m => m.user_Account == CookieHepler.GetCookie("user")).user_Avatar;
                 return View(model);
             }
             var result = AccountManager.ChangeCover(model);
@@ -255,7 +265,7 @@ namespace MovieResources.Controllers
         #region 用户电影、影人、资源、求资源、专辑主页
         //
         // GET: /Mine/MineMovie/
-        [Authorize]
+        [Signedin]
         public ActionResult MineMovie(int type)
         {
             if (type > 4 || type < 1)
@@ -265,7 +275,8 @@ namespace MovieResources.Controllers
             ViewBag.MovieType = type;
 
             MineMovieViewModel minemovie = new MineMovieViewModel();
-            minemovie.Account = User.Identity.Name;
+            //minemovie.Account = CookieHepler.GetCookie("user");
+            minemovie.Account = CookieHepler.GetCookie("user");
             minemovie.Id = AccountManager.GetId(minemovie.Account);
             minemovie.Avatar = _db.tbl_UserAccount.SingleOrDefault(a => a.user_Id == minemovie.Id).user_Avatar;
 
@@ -281,9 +292,12 @@ namespace MovieResources.Controllers
                 foreach (var item in movies)
                 {
                     MovieViewModel movie = new MovieViewModel(_db.tbl_Movie.Single(m => m.movie_Id == item.mark_Target));
-                    movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 1);
-                    movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 2);
-                    movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 3);
+                    //movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                    //movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                    //movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
+                    movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                    movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                    movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
                     minemovie.Moives.Add(movie);
                 }
             }
@@ -293,9 +307,12 @@ namespace MovieResources.Controllers
                 foreach (var item in movies)
                 {
                     MovieViewModel movie = new MovieViewModel(item);
-                    movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 1);
-                    movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 2);
-                    movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(User.Identity.Name), 3);
+                    //movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                    //movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                    //movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
+                    movie.IsPlan = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                    movie.IsFinish = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                    movie.IsFavor = MarkManager.Validate(movie.Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
                     minemovie.Moives.Add(movie);
                 }
             }
@@ -304,7 +321,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/MarkedCeleb/
-        [Authorize]
+        [Signedin]
         public ActionResult MineCeleb(int type)
         {
             if (type > 2 || type < 1)
@@ -314,7 +331,8 @@ namespace MovieResources.Controllers
             ViewBag.CelebType = type;
 
             MineCelebViewModel mineceleb = new MineCelebViewModel();
-            mineceleb.Account = User.Identity.Name;
+            //mineceleb.Account = CookieHepler.GetCookie("user");
+            mineceleb.Account = CookieHepler.GetCookie("user");
             mineceleb.Id = AccountManager.GetId(mineceleb.Account);
             mineceleb.Avatar = _db.tbl_UserAccount.SingleOrDefault(a => a.user_Id == mineceleb.Id).user_Avatar;
 
@@ -345,11 +363,12 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/MineRes/
-        [Authorize]
+        [Signedin]
         public ActionResult MineRes()
         {
             MineResViewModel mineres = new MineResViewModel();
-            mineres.Account = User.Identity.Name;
+            //mineres.Account = CookieHepler.GetCookie("user");
+            mineres.Account = CookieHepler.GetCookie("user");
             mineres.Id = AccountManager.GetId(mineres.Account);
             mineres.Avatar = _db.tbl_UserAccount.SingleOrDefault(a => a.user_Id == mineres.Id).user_Avatar;
 
@@ -368,11 +387,12 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/MineAsk/
-        [Authorize]
+        [Signedin]
         public ActionResult MineAsk()
         {
             MineAskViewModel mineask = new MineAskViewModel();
-            mineask.Account = User.Identity.Name;
+            //mineask.Account = CookieHepler.GetCookie("user");
+            mineask.Account = CookieHepler.GetCookie("user");
             mineask.Id = AccountManager.GetId(mineask.Account);
             mineask.Avatar = _db.tbl_UserAccount.SingleOrDefault(a => a.user_Id == mineask.Id).user_Avatar;
 
@@ -392,7 +412,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Mine/MineAlbum/
-        [Authorize]
+        [Signedin]
         public ActionResult MineAlbum(int type)
         {
             if (type > 2 || type < 1)
@@ -400,7 +420,8 @@ namespace MovieResources.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
             MineAlbumViewModel minealbum = new MineAlbumViewModel();
-            minealbum.Account = User.Identity.Name;
+            //minealbum.Account = CookieHepler.GetCookie("user");
+            minealbum.Account = CookieHepler.GetCookie("user");
             minealbum.Id = AccountManager.GetId(minealbum.Account);
             minealbum.Avatar = _db.tbl_UserAccount.SingleOrDefault(a => a.user_Id == minealbum.Id).user_Avatar;
             ViewBag.AlbumType = type;

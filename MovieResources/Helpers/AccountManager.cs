@@ -48,15 +48,18 @@ namespace MovieResources.Helpers
             }
             else if (validate[0].user_Password == DESEncryption.DesEncrypt(password))
             {
-                HttpCookie cookie = new HttpCookie("user", account);
-                cookie.Expires = DateTime.Now.AddHours(12);
-                HttpContext.Current.Response.Cookies.Add(cookie);
-                cookie = new HttpCookie("userid", validate[0].user_Id.ToString());
-                cookie.Expires = DateTime.Now.AddHours(12);
-                HttpContext.Current.Response.Cookies.Add(cookie);
-                cookie = new HttpCookie("usertype", validate[0].user_IsAdmin.ToString());
-                cookie.Expires = DateTime.Now.AddHours(12);
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                CookieHepler.SetCookie("user", account);
+                CookieHepler.SetCookie("userid", validate[0].user_Id.ToString());
+                CookieHepler.SetCookie("usertype", validate[0].user_IsAdmin.ToString());
+                //HttpCookie cookie = new HttpCookie("user", account);
+                //cookie.Expires = DateTime.Now.AddHours(12);
+                //HttpContext.Current.Response.Cookies.Add(cookie);
+                //cookie = new HttpCookie("userid", validate[0].user_Id.ToString());
+                //cookie.Expires = DateTime.Now.AddHours(12);
+                //HttpContext.Current.Response.Cookies.Add(cookie);
+                //cookie = new HttpCookie("usertype", validate[0].user_IsAdmin.ToString());
+                //cookie.Expires = DateTime.Now.AddHours(12);
+                //HttpContext.Current.Response.Cookies.Add(cookie);
                 return SignInStatus.Success;
             }
             else
@@ -79,15 +82,18 @@ namespace MovieResources.Helpers
         //}
         public static void SignInWithCookie()
         {
-            HttpCookie cookie = new HttpCookie("user", HttpContext.Current.Request.Cookies["user"].Value);
-            cookie.Expires = DateTime.Now.AddHours(12);
-            HttpContext.Current.Response.Cookies.Add(cookie);
-            cookie = new HttpCookie("userid", HttpContext.Current.Request.Cookies["userid"].Value);
-            cookie.Expires = DateTime.Now.AddHours(12);
-            HttpContext.Current.Response.Cookies.Add(cookie);
-            cookie = new HttpCookie("usertype", HttpContext.Current.Request.Cookies["usertype"].Value);
-            cookie.Expires = DateTime.Now.AddHours(12);
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            CookieHepler.SetCookie("user", CookieHepler.GetCookie("user"));
+            CookieHepler.SetCookie("userid", CookieHepler.GetCookie("userid"));
+            CookieHepler.SetCookie("usertype", CookieHepler.GetCookie("usertype"));
+            //HttpCookie cookie = new HttpCookie("user", HttpContext.Current.Request.Cookies["user"].Value);
+            //cookie.Expires = DateTime.Now.AddHours(12);
+            //HttpContext.Current.Response.Cookies.Add(cookie);
+            //cookie = new HttpCookie("userid", HttpContext.Current.Request.Cookies["userid"].Value);
+            //cookie.Expires = DateTime.Now.AddHours(12);
+            //HttpContext.Current.Response.Cookies.Add(cookie);
+            //cookie = new HttpCookie("usertype", HttpContext.Current.Request.Cookies["usertype"].Value);
+            //cookie.Expires = DateTime.Now.AddHours(12);
+            //HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         /// <summary>
@@ -330,28 +336,6 @@ namespace MovieResources.Helpers
         }
 
         /// <summary>
-        /// 检查用户是否是管理员
-        /// </summary>
-        /// <param name="id">用户id</param>
-        /// <returns>是管理员true，否则false</returns>
-        public static bool IsAdmin(string id)
-        {
-            //using (MR_DataClassesDataContext _db = new MR_DataClassesDataContext())
-            using (MRDataEntities _db = new MRDataEntities())
-            {
-                var user = _db.tbl_UserAccount.SingleOrDefault(p => p.user_Id == id);
-                if (user != null)
-                {
-                    return (bool)user.user_IsAdmin;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>
         /// 获取用户头像
         /// </summary>
         /// <param name="id">用户id</param>
@@ -399,9 +383,9 @@ namespace MovieResources.Helpers
         /// </summary>
         public static void SignOut()
         {
-            HttpContext.Current.Request.Cookies.Remove("user");
-            HttpContext.Current.Request.Cookies.Remove("userid");
-            HttpContext.Current.Request.Cookies.Remove("usertype");
+            //HttpContext.Current.Request.Cookies.Remove("user");
+            //HttpContext.Current.Request.Cookies.Remove("userid");
+            //HttpContext.Current.Request.Cookies.Remove("usertype");
             HttpCookie cookie = new HttpCookie("user");
             cookie.Expires = DateTime.Now.AddDays(-1000);
             HttpContext.Current.Response.AppendCookie(cookie);
@@ -422,7 +406,25 @@ namespace MovieResources.Helpers
         /// <returns></returns>
         public static bool CheckAdmin()
         {
-            return bool.Parse(HttpContext.Current.Request.Cookies["usertype"].Value);
+            //using (MRDataEntities _db = new MRDataEntities())
+            //{
+            //    var result = _db.tbl_UserAccount.FirstOrDefault(p => p.user_Account == name);
+            //    return (bool)result.user_IsAdmin;
+            //}
+            return bool.Parse(CookieHepler.GetCookie("usertype"));
+        }
+        /// <summary>
+        /// 检查某个用户时候为管理员
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <returns></returns>
+        public static bool CheckAdmin(string id)
+        {
+            using (MRDataEntities _db = new MRDataEntities())
+            {
+                var result = _db.tbl_UserAccount.FirstOrDefault(p => p.user_Id == id);
+                return (bool)result.user_IsAdmin;
+            }
         }
     }
 
@@ -434,12 +436,54 @@ namespace MovieResources.Helpers
 
     public static class CookieHepler
     {
-        public static bool HasValue(string name)
+        /// <summary>
+        /// 判断Cookie是否为空
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool HasCookie(string key)
         {
-            if (HttpContext.Current.Request.Cookies["user"] != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["user"].Value.Trim()))
+            if (HttpContext.Current.Request.Cookies[key] != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Cookies[key].Value.Trim()))
                 return true;
             else
                 return false;
+        }
+
+        /// <summary>
+        /// 获取Cookie的值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetCookie(string key)
+        {
+            if (HttpContext.Current.Request.Cookies[key] == null)
+                return null;
+            else
+                return HttpContext.Current.Request.Cookies[key].Value;
+        }
+
+        /// <summary>
+        /// 添加Cookie
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public static void SetCookie(string key, string value)
+        {
+            HttpCookie cookie = new HttpCookie(key, value);
+            cookie.Expires = DateTime.Now.AddHours(12);
+            HttpContext.Current.Response.AppendCookie(cookie);
+        }
+
+        /// <summary>
+        /// 添加Cookie
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expire">过期时间</param>
+        public static void SetCookie(string key, DateTime expire)
+        {
+            HttpCookie cookie = new HttpCookie(key);
+            cookie.Expires = expire;
+            HttpContext.Current.Response.AppendCookie(cookie);
         }
     }
 

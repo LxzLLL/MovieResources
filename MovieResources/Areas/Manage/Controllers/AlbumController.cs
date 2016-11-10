@@ -67,7 +67,7 @@ namespace MovieResources.Areas.Manage.Controllers
             {
                 model.Cover = "Album_1.jpg";
             }
-            model.UserId = AccountManager.GetId(User.Identity.Name);
+            model.UserId = AccountManager.GetId(CookieHepler.GetCookie("user"));
             AlbumManager.Create(model);
             return View(new ManageAlbumViewModel());
         }

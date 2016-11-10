@@ -98,21 +98,22 @@ namespace MovieResources.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var result = AccountManager.Create(model.Account, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    AccountManager.SignIn(model.Account);
+                var result = AccountManager.Create(model.Account, model.Password);
+                if (result.Succeeded)
+                {
+                    //AccountManager.SignIn(model.Account);
+                    AccountManager.SignInWithPassword(model.Account, model.Password);
 
-                //    if (AccountManager.IsAdmin(AccountManager.GetId(User.Identity.Name)))
-                //    {
-                //        return RedirectToAction("Index", "ManageMovie");
-                //    }
-                //    else
-                //    {
-                //        return RedirectToLocal(returnurl);
-                //    }
-                //}
-                //ModelState.AddModelError("", result.Error);
+                    if (AccountManager.CheckAdmin())
+                    {
+                        return RedirectToAction("Index", "ManageMovie");
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnurl);
+                    }
+                }
+                ModelState.AddModelError("", result.Error);
             }
 
             return View(model);
@@ -123,12 +124,13 @@ namespace MovieResources.Controllers
         //
         // POST: /Account/LogOff/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff(string returnurl)
         {
-            FormsAuthentication.SignOut();
-            Session.RemoveAll();
+            //FormsAuthentication.SignOut();
+            //Session.RemoveAll();
+            AccountManager.SignOut();
             return RedirectToLocal(returnurl);
         }
         #endregion

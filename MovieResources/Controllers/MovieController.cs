@@ -1,4 +1,5 @@
-﻿using MovieResources.Helpers;
+﻿using MovieResources.Filters;
+using MovieResources.Helpers;
 using MovieResources.Models;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -31,19 +32,19 @@ namespace MovieResources.Controllers
             MovieViewModel movie = new MovieViewModel(tblmovie);
             if (User.Identity.IsAuthenticated)
             {
-                movie.IsPlan = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(User.Identity.Name), 1);
-                movie.IsFinish = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(User.Identity.Name), 2);
-                movie.IsFavor = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(User.Identity.Name), 3);
+                movie.IsPlan = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 1);
+                movie.IsFinish = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 2);
+                movie.IsFavor = MarkManager.Validate(tblmovie.movie_Id, AccountManager.GetId(CookieHepler.GetCookie("user")), 3);
 
                 movie.PlanCount = _db.tbl_Mark.Where(m => m.mark_Target == id && m.mark_Type == 1).Count();
                 movie.FinishCount = _db.tbl_Mark.Where(m => m.mark_Target == id && m.mark_Type == 2).Count();
                 movie.FavorCount = _db.tbl_Mark.Where(m => m.mark_Target == id && m.mark_Type == 3).Count();
 
-                if (tblmovie.movie_Create == AccountManager.GetId(User.Identity.Name) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == User.Identity.Name).user_IsAdmin)
+                if (tblmovie.movie_Create == AccountManager.GetId(CookieHepler.GetCookie("user")) || (bool)_db.tbl_UserAccount.SingleOrDefault(a => a.user_Account == CookieHepler.GetCookie("user")).user_IsAdmin)
                 {
                     movie.IsCreate = true;
                 }
-                var cmt = _db.tbl_Comment.SingleOrDefault(c => c.cmt_Movie == id && c.cmt_User == AccountManager.GetId(User.Identity.Name));
+                var cmt = _db.tbl_Comment.SingleOrDefault(c => c.cmt_Movie == id && c.cmt_User == AccountManager.GetId(CookieHepler.GetCookie("user")));
                 if (cmt != null)
                 {
                     movie.MyComment = new CommentViewModel(cmt);
@@ -80,7 +81,7 @@ namespace MovieResources.Controllers
         #region 创建电影
         //
         // GET: /Movie/Create/
-        [Authorize]
+        [Signedin]
         public ActionResult Create()
         {
             return View();
@@ -89,7 +90,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Movie/Create/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateMovieViewModel movie)
         {
@@ -112,7 +113,7 @@ namespace MovieResources.Controllers
                 else
                 {
                     ModelState.AddModelError("", string.Format("{0} {1} {2}", "添加编号为", item, "的电影 成功"));
-                    MovieManager.CreateJson(json, Server.MapPath("~/Content/Movie/"), AccountManager.GetId(User.Identity.Name));
+                    MovieManager.CreateJson(json, Server.MapPath("~/Content/Movie/"), AccountManager.GetId(CookieHepler.GetCookie("user")));
                 }
             }
             return View();
@@ -120,7 +121,7 @@ namespace MovieResources.Controllers
 
         //
         // GET: /Movie/CreateMovie/
-        [Authorize]
+        [Signedin]
         public ActionResult CreateMovie()
         {
             return View();
@@ -129,7 +130,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Movie/CreateMovie/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult CreateMovie(ManageMovieViewModel movie, System.Web.HttpPostedFileBase file)
         {
@@ -145,7 +146,7 @@ namespace MovieResources.Controllers
             }
             //MR_DataClassesDataContext _db = new MR_DataClassesDataContext();
             MRDataEntities _db = new MRDataEntities();
-            if ((bool)_db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == User.Identity.Name).user_IsAdmin)
+            if ((bool)_db.tbl_UserAccount.SingleOrDefault(u => u.user_Account == CookieHepler.GetCookie("user")).user_IsAdmin)
             {
                 movie.Status = 2;
             }
@@ -153,7 +154,7 @@ namespace MovieResources.Controllers
             {
                 movie.Status = 0;
             }
-            movie.Create = AccountManager.GetId(User.Identity.Name);
+            movie.Create = AccountManager.GetId(CookieHepler.GetCookie("user"));
             string newId = MovieManager.CreateMovie(movie);
             return RedirectToAction("Index", new { id = newId });
         }
@@ -162,7 +163,7 @@ namespace MovieResources.Controllers
         #region 修改电影
         //
         // GET: /Movie/Edit/
-        [Authorize]
+        [Signedin]
         public ActionResult Edit(string id)
         {
             if (!MovieManager.Exist(id))
@@ -177,7 +178,7 @@ namespace MovieResources.Controllers
         //
         // POST: /Movie/Edit/
         [HttpPost]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManageMovieViewModel model, System.Web.HttpPostedFileBase file)
         {
@@ -210,7 +211,7 @@ namespace MovieResources.Controllers
         #region 更新电影
         //
         // GET: /Movie/Refresh/
-        [Authorize]
+        [Signedin]
         public ActionResult Refresh(string id)
         {
             if (!MovieManager.Exist(id))
@@ -243,7 +244,7 @@ namespace MovieResources.Controllers
         //
         // Post: /Movie/Refresh/
         [HttpPost, ActionName("Refresh")]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult RefreshConfirm(string id)
         {
@@ -260,7 +261,7 @@ namespace MovieResources.Controllers
         #region 删除电影
         //
         // GET: /Movie/Delete/
-        [Authorize]
+        [Signedin]
         public ActionResult Delete(string id, string returnurl)
         {
             if (!MovieManager.Exist(id))
@@ -275,7 +276,7 @@ namespace MovieResources.Controllers
         //
         // Post: /Movie/Delete/
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Signedin]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(string id, string returnurl)
         {
