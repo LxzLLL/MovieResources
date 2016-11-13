@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aed48820a26644a8a32974faeab4b1bd" Name="Diagram1" ShowGrid="true">
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Celebrity" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Collection" Width="1.5" PointX="3" PointY="37.125" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Comment" Width="1.5" PointX="8.25" PointY="19.875" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Movie" Width="1.5" PointX="3" PointY="21" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Operation_Log" Width="1.5" PointX="3" PointY="44.25" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Recommend" Width="1.5" PointX="5.25" PointY="30" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Request" Width="1.5" PointX="8.25" PointY="27.875" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Resource" Width="1.5" PointX="8.25" PointY="23.375" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_User" Width="1.5" PointX="0.75" PointY="24.25" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Celeb_Avatar" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Celeb_Work" Width="1.5" PointX="5.25" PointY="20.125" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Movie_Country" Width="1.5" PointX="5.25" PointY="36.375" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Movie_Genre" Width="1.5" PointX="5.25" PointY="27.375" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Movie_Lang" Width="1.5" PointX="5.25" PointY="39" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Movie_Poster" Width="1.5" PointX="5.25" PointY="41.625" />
+        <EntityTypeShape EntityType="MovieResShareModel.Step_Movie_Rating" Width="1.5" PointX="5.25" PointY="16.25" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Celebrity_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Celeb_Avatar_Basic_Celebrity" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Celeb_Work_Basic_Celebrity" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Collection_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Comment_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Comment_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Movie_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Recommend_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Request_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Resource_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Celeb_Work_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Movie_Country_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Movie_Genre_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Movie_Lang_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Movie_Poster_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Step_Movie_Rating_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Operation_Log_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Request_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Resource_Basic_User" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_Movie_Visit" Width="1.5" PointX="11.25" PointY="24.125" />
+        <EntityTypeShape EntityType="MovieResShareModel.Basic_User_Signin" Width="1.5" PointX="3" PointY="29.625" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Movie_Visit_Basic_Movie" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_Movie_Visit_Basic_User" />
+        <AssociationConnector Association="MovieResShareModel.FK_Basic_User_Signin_Basic_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MovieResShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Basic_Celebrity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Aka" Type="nvarchar(max)" />
+          <Property Name="Name_En" Type="nvarchar" MaxLength="200" />
+          <Property Name="Aka_En" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="200" />
+          <Property Name="Birth_Date" Type="varchar" MaxLength="50" />
+          <Property Name="Death_Date" Type="varchar" MaxLength="50" />
+          <Property Name="Born_Place" Type="nvarchar(max)" />
+          <Property Name="Family" Type="nvarchar(max)" />
+          <Property Name="Douban" Type="varchar" MaxLength="50" />
+          <Property Name="IMDb" Type="varchar" MaxLength="50" />
+          <Property Name="Summary" Type="nvarchar(max)" />
+          <Property Name="Create_Time" Type="datetime" />
+          <Property Name="Alter_Time" Type="datetime" />
+          <Property Name="Create_User" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Basic_Collection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Summary" Type="nvarchar(max)" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="200" />
+          <Property Name="Create_Time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="Alter_Time" Type="datetime"  StoreGeneratedPattern="Identity"/>
+        </EntityType>
+        <EntityType Name="Basic_Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Time" Type="datetime"  StoreGeneratedPattern="Identity"/>
+        </EntityType>
+        <EntityType Name="Basic_Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Title_En" Type="nvarchar" MaxLength="200" />
+          <Property Name="Aka" Type="nvarchar(max)" />
+          <Property Name="Year" Type="smallint" />
+          <Property Name="Website" Type="nvarchar" MaxLength="200" />
+          <Property Name="Current_Season" Type="smallint" />
+          <Property Name="Season_Count" Type="smallint" />
+          <Property Name="Episode_Count" Type="int" />
+          <Property Name="Pubdate" Type="nvarchar" MaxLength="200" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="200" />
+          <Property Name="Douban" Type="nvarchar" MaxLength="50" />
+          <Property Name="IMDb" Type="nvarchar" MaxLength="50" />
+          <Property Name="Summary" Type="nvarchar(max)" />
+          <Property Name="Collect_Count" Type="bigint" />
+          <Property Name="Create_Time" Type="datetime"  StoreGeneratedPattern="Identity"/>
+          <Property Name="Alter_Time" Type="datetime"  StoreGeneratedPattern="Identity"/>
+          <Property Name="Create_User" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Basic_Movie_Visit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Time" Type="datetime"  StoreGeneratedPattern="Identity"/>
+        </EntityType>
+        <EntityType Name="Basic_Operation_Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Target" Type="uniqueidentifier" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="Note" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Basic_Recommend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Image" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sort_Number" Type="int" />
+        </EntityType>
+        <EntityType Name="Basic_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time" Type="datetime" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Basic_Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Content" Type="nvarchar" MaxLength="200" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Basic_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="50" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="200" />
+          <Property Name="Cover" Type="nvarchar" MaxLength="200" />
+          <Property Name="Limit" Type="bit" />
+          <Property Name="Create_Time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="Alter_Time" Type="datetime" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Basic_User_Signin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User" Type="uniqueidentifier" />
+          <Property Name="Time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="IP" Type="varchar" MaxLength="200" />
+          <Property Name="Broswer" Type="varchar" MaxLength="200" />
+          <Property Name="Major_Version" Type="varchar" MaxLength="200" />
+          <Property Name="Position" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Celeb_Avatar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Celeb" Type="uniqueidentifier" />
+          <Property Name="Small" Type="nvarchar" MaxLength="200" />
+          <Property Name="Large" Type="nvarchar" MaxLength="200" />
+          <Property Name="Medium" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Celeb_Work">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Celeb" Type="uniqueidentifier" />
+          <Property Name="Position" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Country" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Genre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Genre" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Lang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Lang" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Poster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Small" Type="nvarchar" MaxLength="200" />
+          <Property Name="Large" Type="nvarchar" MaxLength="200" />
+          <Property Name="Medium" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Score" Type="float" />
+          <Property Name="Movie" Type="uniqueidentifier" />
+          <Property Name="Star5" Type="varchar" MaxLength="10" />
+          <Property Name="Star4" Type="varchar" MaxLength="10" />
+          <Property Name="Star3" Type="varchar" MaxLength="10" />
+          <Property Name="Star2" Type="varchar" MaxLength="10" />
+          <Property Name="Star1" Type="varchar" MaxLength="10" />
+          <Property Name="Rated_Num" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_Basic_Celebrity_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Celebrity" Type="Self.Basic_Celebrity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Celebrity">
+              <PropertyRef Name="Create_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Collection_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Collection" Type="Self.Basic_Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Collection">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Comment_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Basic_Comment" Type="Self.Basic_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Comment">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Comment_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Comment" Type="Self.Basic_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Comment">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Movie_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie">
+              <PropertyRef Name="Create_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Movie_Visit_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Basic_Movie_Visit" Type="Self.Basic_Movie_Visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie_Visit">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Movie_Visit_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Movie_Visit" Type="Self.Basic_Movie_Visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie_Visit">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Operation_Log_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Operation_Log" Type="Self.Basic_Operation_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Operation_Log">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Recommend_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Basic_Recommend" Type="Self.Basic_Recommend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Recommend">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Request_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Basic_Request" Type="Self.Basic_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Request">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Request_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Request" Type="Self.Basic_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Request">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Resource_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Basic_Resource" Type="Self.Basic_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Resource">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Resource_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_Resource" Type="Self.Basic_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Resource">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_User_Signin_Basic_User">
+          <End Role="Basic_User" Type="Self.Basic_User" Multiplicity="0..1" />
+          <End Role="Basic_User_Signin" Type="Self.Basic_User_Signin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_User_Signin">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Avatar_Basic_Celebrity">
+          <End Role="Basic_Celebrity" Type="Self.Basic_Celebrity" Multiplicity="0..1" />
+          <End Role="Step_Celeb_Avatar" Type="Self.Step_Celeb_Avatar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Celebrity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Avatar">
+              <PropertyRef Name="Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Work_Basic_Celebrity">
+          <End Role="Basic_Celebrity" Type="Self.Basic_Celebrity" Multiplicity="0..1" />
+          <End Role="Step_Celeb_Work" Type="Self.Step_Celeb_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Celebrity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Work">
+              <PropertyRef Name="Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Work_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Celeb_Work" Type="Self.Step_Celeb_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Work">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Country_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Movie_Country" Type="Self.Step_Movie_Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Country">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Genre_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Movie_Genre" Type="Self.Step_Movie_Genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Genre">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Lang_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Movie_Lang" Type="Self.Step_Movie_Lang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Lang">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Poster_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Movie_Poster" Type="Self.Step_Movie_Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Poster">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Rating_Basic_Movie">
+          <End Role="Basic_Movie" Type="Self.Basic_Movie" Multiplicity="0..1" />
+          <End Role="Step_Movie_Rating" Type="Self.Step_Movie_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Rating">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MovieResShareModelStoreContainer">
+          <EntitySet Name="Basic_Celebrity" EntityType="Self.Basic_Celebrity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Collection" EntityType="Self.Basic_Collection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Comment" EntityType="Self.Basic_Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Movie" EntityType="Self.Basic_Movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Movie_Visit" EntityType="Self.Basic_Movie_Visit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Operation_Log" EntityType="Self.Basic_Operation_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Recommend" EntityType="Self.Basic_Recommend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Request" EntityType="Self.Basic_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_Resource" EntityType="Self.Basic_Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_User" EntityType="Self.Basic_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basic_User_Signin" EntityType="Self.Basic_User_Signin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Celeb_Avatar" EntityType="Self.Step_Celeb_Avatar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Celeb_Work" EntityType="Self.Step_Celeb_Work" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Movie_Country" EntityType="Self.Step_Movie_Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Movie_Genre" EntityType="Self.Step_Movie_Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Movie_Lang" EntityType="Self.Step_Movie_Lang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Movie_Poster" EntityType="Self.Step_Movie_Poster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step_Movie_Rating" EntityType="Self.Step_Movie_Rating" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Basic_Celebrity_Basic_User" Association="Self.FK_Basic_Celebrity_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Collection_Basic_User" Association="Self.FK_Basic_Collection_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Collection" EntitySet="Basic_Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Comment_Basic_Movie" Association="Self.FK_Basic_Comment_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Comment" EntitySet="Basic_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Comment_Basic_User" Association="Self.FK_Basic_Comment_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Comment" EntitySet="Basic_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Movie_Basic_User" Association="Self.FK_Basic_Movie_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Movie_Visit_Basic_Movie" Association="Self.FK_Basic_Movie_Visit_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Movie_Visit" EntitySet="Basic_Movie_Visit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Movie_Visit_Basic_User" Association="Self.FK_Basic_Movie_Visit_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Movie_Visit" EntitySet="Basic_Movie_Visit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Operation_Log_Basic_User" Association="Self.FK_Basic_Operation_Log_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Operation_Log" EntitySet="Basic_Operation_Log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Recommend_Basic_Movie" Association="Self.FK_Basic_Recommend_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Recommend" EntitySet="Basic_Recommend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Request_Basic_Movie" Association="Self.FK_Basic_Request_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Request" EntitySet="Basic_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Request_Basic_User" Association="Self.FK_Basic_Request_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Request" EntitySet="Basic_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Resource_Basic_Movie" Association="Self.FK_Basic_Resource_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Resource" EntitySet="Basic_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Resource_Basic_User" Association="Self.FK_Basic_Resource_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Resource" EntitySet="Basic_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_User_Signin_Basic_User" Association="Self.FK_Basic_User_Signin_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_User_Signin" EntitySet="Basic_User_Signin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Avatar_Basic_Celebrity" Association="Self.FK_Step_Celeb_Avatar_Basic_Celebrity">
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+            <End Role="Step_Celeb_Avatar" EntitySet="Step_Celeb_Avatar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Work_Basic_Celebrity" Association="Self.FK_Step_Celeb_Work_Basic_Celebrity">
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+            <End Role="Step_Celeb_Work" EntitySet="Step_Celeb_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Work_Basic_Movie" Association="Self.FK_Step_Celeb_Work_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Celeb_Work" EntitySet="Step_Celeb_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Country_Basic_Movie" Association="Self.FK_Step_Movie_Country_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Country" EntitySet="Step_Movie_Country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Genre_Basic_Movie" Association="Self.FK_Step_Movie_Genre_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Genre" EntitySet="Step_Movie_Genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Lang_Basic_Movie" Association="Self.FK_Step_Movie_Lang_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Lang" EntitySet="Step_Movie_Lang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Poster_Basic_Movie" Association="Self.FK_Step_Movie_Poster_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Poster" EntitySet="Step_Movie_Poster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Rating_Basic_Movie" Association="Self.FK_Step_Movie_Rating_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Rating" EntitySet="Step_Movie_Rating" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MovieResShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MovieResShareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Basic_Celebrity" EntityType="MovieResShareModel.Basic_Celebrity" />
+          <EntitySet Name="Basic_Collection" EntityType="MovieResShareModel.Basic_Collection" />
+          <EntitySet Name="Basic_Comment" EntityType="MovieResShareModel.Basic_Comment" />
+          <EntitySet Name="Basic_Movie" EntityType="MovieResShareModel.Basic_Movie" />
+          <EntitySet Name="Basic_Operation_Log" EntityType="MovieResShareModel.Basic_Operation_Log" />
+          <EntitySet Name="Basic_Recommend" EntityType="MovieResShareModel.Basic_Recommend" />
+          <EntitySet Name="Basic_Request" EntityType="MovieResShareModel.Basic_Request" />
+          <EntitySet Name="Basic_Resource" EntityType="MovieResShareModel.Basic_Resource" />
+          <EntitySet Name="Basic_User" EntityType="MovieResShareModel.Basic_User" />
+          <EntitySet Name="Step_Celeb_Avatar" EntityType="MovieResShareModel.Step_Celeb_Avatar" />
+          <EntitySet Name="Step_Celeb_Work" EntityType="MovieResShareModel.Step_Celeb_Work" />
+          <EntitySet Name="Step_Movie_Country" EntityType="MovieResShareModel.Step_Movie_Country" />
+          <EntitySet Name="Step_Movie_Genre" EntityType="MovieResShareModel.Step_Movie_Genre" />
+          <EntitySet Name="Step_Movie_Lang" EntityType="MovieResShareModel.Step_Movie_Lang" />
+          <EntitySet Name="Step_Movie_Poster" EntityType="MovieResShareModel.Step_Movie_Poster" />
+          <EntitySet Name="Step_Movie_Rating" EntityType="MovieResShareModel.Step_Movie_Rating" />
+          <AssociationSet Name="FK_Basic_Celebrity_Basic_User" Association="MovieResShareModel.FK_Basic_Celebrity_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Avatar_Basic_Celebrity" Association="MovieResShareModel.FK_Step_Celeb_Avatar_Basic_Celebrity">
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+            <End Role="Step_Celeb_Avatar" EntitySet="Step_Celeb_Avatar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Work_Basic_Celebrity" Association="MovieResShareModel.FK_Step_Celeb_Work_Basic_Celebrity">
+            <End Role="Basic_Celebrity" EntitySet="Basic_Celebrity" />
+            <End Role="Step_Celeb_Work" EntitySet="Step_Celeb_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Collection_Basic_User" Association="MovieResShareModel.FK_Basic_Collection_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Collection" EntitySet="Basic_Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Comment_Basic_Movie" Association="MovieResShareModel.FK_Basic_Comment_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Comment" EntitySet="Basic_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Comment_Basic_User" Association="MovieResShareModel.FK_Basic_Comment_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Comment" EntitySet="Basic_Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Movie_Basic_User" Association="MovieResShareModel.FK_Basic_Movie_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Recommend_Basic_Movie" Association="MovieResShareModel.FK_Basic_Recommend_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Recommend" EntitySet="Basic_Recommend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Request_Basic_Movie" Association="MovieResShareModel.FK_Basic_Request_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Request" EntitySet="Basic_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Resource_Basic_Movie" Association="MovieResShareModel.FK_Basic_Resource_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Resource" EntitySet="Basic_Resource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Celeb_Work_Basic_Movie" Association="MovieResShareModel.FK_Step_Celeb_Work_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Celeb_Work" EntitySet="Step_Celeb_Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Country_Basic_Movie" Association="MovieResShareModel.FK_Step_Movie_Country_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Country" EntitySet="Step_Movie_Country" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Genre_Basic_Movie" Association="MovieResShareModel.FK_Step_Movie_Genre_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Genre" EntitySet="Step_Movie_Genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Lang_Basic_Movie" Association="MovieResShareModel.FK_Step_Movie_Lang_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Lang" EntitySet="Step_Movie_Lang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Poster_Basic_Movie" Association="MovieResShareModel.FK_Step_Movie_Poster_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Poster" EntitySet="Step_Movie_Poster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Movie_Rating_Basic_Movie" Association="MovieResShareModel.FK_Step_Movie_Rating_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Step_Movie_Rating" EntitySet="Step_Movie_Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Operation_Log_Basic_User" Association="MovieResShareModel.FK_Basic_Operation_Log_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Operation_Log" EntitySet="Basic_Operation_Log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Request_Basic_User" Association="MovieResShareModel.FK_Basic_Request_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Request" EntitySet="Basic_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Resource_Basic_User" Association="MovieResShareModel.FK_Basic_Resource_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Resource" EntitySet="Basic_Resource" />
+          </AssociationSet>
+          <EntitySet Name="Basic_Movie_Visit" EntityType="MovieResShareModel.Basic_Movie_Visit" />
+          <EntitySet Name="Basic_User_Signin" EntityType="MovieResShareModel.Basic_User_Signin" />
+          <AssociationSet Name="FK_Basic_Movie_Visit_Basic_Movie" Association="MovieResShareModel.FK_Basic_Movie_Visit_Basic_Movie">
+            <End Role="Basic_Movie" EntitySet="Basic_Movie" />
+            <End Role="Basic_Movie_Visit" EntitySet="Basic_Movie_Visit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_Movie_Visit_Basic_User" Association="MovieResShareModel.FK_Basic_Movie_Visit_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_Movie_Visit" EntitySet="Basic_Movie_Visit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basic_User_Signin_Basic_User" Association="MovieResShareModel.FK_Basic_User_Signin_Basic_User">
+            <End Role="Basic_User" EntitySet="Basic_User" />
+            <End Role="Basic_User_Signin" EntitySet="Basic_User_Signin" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Basic_Celebrity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Aka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name_En" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Aka_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Profession" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Birth_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Death_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Born_Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Family" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Douban" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IMDb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Create_Time" Type="DateTime" Precision="3" />
+          <Property Name="Alter_Time" Type="DateTime" Precision="3" />
+          <Property Name="Create_User" Type="Guid" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Celebrity_Basic_User" FromRole="Basic_Celebrity" ToRole="Basic_User" />
+          <NavigationProperty Name="Step_Celeb_Avatar" Relationship="MovieResShareModel.FK_Step_Celeb_Avatar_Basic_Celebrity" FromRole="Basic_Celebrity" ToRole="Step_Celeb_Avatar" />
+          <NavigationProperty Name="Step_Celeb_Work" Relationship="MovieResShareModel.FK_Step_Celeb_Work_Basic_Celebrity" FromRole="Basic_Celebrity" ToRole="Step_Celeb_Work" />
+        </EntityType>
+        <EntityType Name="Basic_Collection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Create_Time" Type="DateTime" Precision="3" />
+          <Property Name="Alter_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Collection_Basic_User" FromRole="Basic_Collection" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Comment_Basic_Movie" FromRole="Basic_Comment" ToRole="Basic_Movie" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Comment_Basic_User" FromRole="Basic_Comment" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Title_En" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Aka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Int16" />
+          <Property Name="Website" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Current_Season" Type="Int16" />
+          <Property Name="Season_Count" Type="Int16" />
+          <Property Name="Episode_Count" Type="Int32" />
+          <Property Name="Pubdate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Douban" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IMDb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Collect_Count" Type="Int64" />
+          <Property Name="Create_Time" Type="DateTime" Precision="3" />
+          <Property Name="Alter_Time" Type="DateTime" Precision="3" />
+          <Property Name="Create_User" Type="Guid" />
+          <NavigationProperty Name="Basic_Comment" Relationship="MovieResShareModel.FK_Basic_Comment_Basic_Movie" FromRole="Basic_Movie" ToRole="Basic_Comment" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Movie_Basic_User" FromRole="Basic_Movie" ToRole="Basic_User" />
+          <NavigationProperty Name="Basic_Recommend" Relationship="MovieResShareModel.FK_Basic_Recommend_Basic_Movie" FromRole="Basic_Movie" ToRole="Basic_Recommend" />
+          <NavigationProperty Name="Basic_Request" Relationship="MovieResShareModel.FK_Basic_Request_Basic_Movie" FromRole="Basic_Movie" ToRole="Basic_Request" />
+          <NavigationProperty Name="Basic_Resource" Relationship="MovieResShareModel.FK_Basic_Resource_Basic_Movie" FromRole="Basic_Movie" ToRole="Basic_Resource" />
+          <NavigationProperty Name="Step_Celeb_Work" Relationship="MovieResShareModel.FK_Step_Celeb_Work_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Celeb_Work" />
+          <NavigationProperty Name="Step_Movie_Country" Relationship="MovieResShareModel.FK_Step_Movie_Country_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Movie_Country" />
+          <NavigationProperty Name="Step_Movie_Genre" Relationship="MovieResShareModel.FK_Step_Movie_Genre_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Movie_Genre" />
+          <NavigationProperty Name="Step_Movie_Lang" Relationship="MovieResShareModel.FK_Step_Movie_Lang_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Movie_Lang" />
+          <NavigationProperty Name="Step_Movie_Poster" Relationship="MovieResShareModel.FK_Step_Movie_Poster_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Movie_Poster" />
+          <NavigationProperty Name="Step_Movie_Rating" Relationship="MovieResShareModel.FK_Step_Movie_Rating_Basic_Movie" FromRole="Basic_Movie" ToRole="Step_Movie_Rating" />
+          <NavigationProperty Name="Basic_Movie_Visit" Relationship="MovieResShareModel.FK_Basic_Movie_Visit_Basic_Movie" FromRole="Basic_Movie" ToRole="Basic_Movie_Visit" />
+        </EntityType>
+        <EntityType Name="Basic_Operation_Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Target" Type="Guid" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Operation_Log_Basic_User" FromRole="Basic_Operation_Log" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_Recommend">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sort_Number" Type="Int32" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Recommend_Basic_Movie" FromRole="Basic_Recommend" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Basic_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Request_Basic_Movie" FromRole="Basic_Request" ToRole="Basic_Movie" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Request_Basic_User" FromRole="Basic_Request" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Resource_Basic_Movie" FromRole="Basic_Resource" ToRole="Basic_Movie" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Resource_Basic_User" FromRole="Basic_Resource" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Boolean" />
+          <Property Name="Create_Time" Type="DateTime" Precision="3" />
+          <Property Name="Alter_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basic_Celebrity" Relationship="MovieResShareModel.FK_Basic_Celebrity_Basic_User" FromRole="Basic_User" ToRole="Basic_Celebrity" />
+          <NavigationProperty Name="Basic_Collection" Relationship="MovieResShareModel.FK_Basic_Collection_Basic_User" FromRole="Basic_User" ToRole="Basic_Collection" />
+          <NavigationProperty Name="Basic_Comment" Relationship="MovieResShareModel.FK_Basic_Comment_Basic_User" FromRole="Basic_User" ToRole="Basic_Comment" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Movie_Basic_User" FromRole="Basic_User" ToRole="Basic_Movie" />
+          <NavigationProperty Name="Basic_Operation_Log" Relationship="MovieResShareModel.FK_Basic_Operation_Log_Basic_User" FromRole="Basic_User" ToRole="Basic_Operation_Log" />
+          <NavigationProperty Name="Basic_Request" Relationship="MovieResShareModel.FK_Basic_Request_Basic_User" FromRole="Basic_User" ToRole="Basic_Request" />
+          <NavigationProperty Name="Basic_Resource" Relationship="MovieResShareModel.FK_Basic_Resource_Basic_User" FromRole="Basic_User" ToRole="Basic_Resource" />
+          <NavigationProperty Name="Basic_Movie_Visit" Relationship="MovieResShareModel.FK_Basic_Movie_Visit_Basic_User" FromRole="Basic_User" ToRole="Basic_Movie_Visit" />
+          <NavigationProperty Name="Basic_User_Signin" Relationship="MovieResShareModel.FK_Basic_User_Signin_Basic_User" FromRole="Basic_User" ToRole="Basic_User_Signin" />
+        </EntityType>
+        <EntityType Name="Step_Celeb_Avatar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Celeb" Type="Guid" />
+          <Property Name="Small" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Large" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Medium" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Celebrity" Relationship="MovieResShareModel.FK_Step_Celeb_Avatar_Basic_Celebrity" FromRole="Step_Celeb_Avatar" ToRole="Basic_Celebrity" />
+        </EntityType>
+        <EntityType Name="Step_Celeb_Work">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Celeb" Type="Guid" />
+          <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Celebrity" Relationship="MovieResShareModel.FK_Step_Celeb_Work_Basic_Celebrity" FromRole="Step_Celeb_Work" ToRole="Basic_Celebrity" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Celeb_Work_Basic_Movie" FromRole="Step_Celeb_Work" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Movie_Country_Basic_Movie" FromRole="Step_Movie_Country" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Genre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Genre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Movie_Genre_Basic_Movie" FromRole="Step_Movie_Genre" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Lang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Lang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Movie_Lang_Basic_Movie" FromRole="Step_Movie_Lang" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Poster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Small" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Large" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Medium" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Movie_Poster_Basic_Movie" FromRole="Step_Movie_Poster" ToRole="Basic_Movie" />
+        </EntityType>
+        <EntityType Name="Step_Movie_Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Score" Type="Double" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="Star5" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Star4" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Star3" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Star2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Star1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Rated_Num" Type="Int64" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Step_Movie_Rating_Basic_Movie" FromRole="Step_Movie_Rating" ToRole="Basic_Movie" />
+        </EntityType>
+        <Association Name="FK_Basic_Celebrity_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Celebrity" Role="Basic_Celebrity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Celebrity">
+              <PropertyRef Name="Create_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Avatar_Basic_Celebrity">
+          <End Type="MovieResShareModel.Basic_Celebrity" Role="Basic_Celebrity" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Celeb_Avatar" Role="Step_Celeb_Avatar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Celebrity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Avatar">
+              <PropertyRef Name="Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Work_Basic_Celebrity">
+          <End Type="MovieResShareModel.Basic_Celebrity" Role="Basic_Celebrity" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Celeb_Work" Role="Step_Celeb_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Celebrity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Work">
+              <PropertyRef Name="Celeb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Collection_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Collection" Role="Basic_Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Collection">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Comment_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Comment" Role="Basic_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Comment">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Comment_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Comment" Role="Basic_Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Comment">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Movie_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie">
+              <PropertyRef Name="Create_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Recommend_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Recommend" Role="Basic_Recommend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Recommend">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Request_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Request" Role="Basic_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Request">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Resource_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Resource" Role="Basic_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Resource">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Celeb_Work_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Celeb_Work" Role="Step_Celeb_Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Celeb_Work">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Country_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Movie_Country" Role="Step_Movie_Country" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Country">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Genre_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Movie_Genre" Role="Step_Movie_Genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Genre">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Lang_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Movie_Lang" Role="Step_Movie_Lang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Lang">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Poster_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Movie_Poster" Role="Step_Movie_Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Poster">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Movie_Rating_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Step_Movie_Rating" Role="Step_Movie_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Step_Movie_Rating">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Operation_Log_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Operation_Log" Role="Basic_Operation_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Operation_Log">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Request_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Request" Role="Basic_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Request">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Resource_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Resource" Role="Basic_Resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Resource">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Basic_Movie_Visit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Movie" Type="Guid" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Basic_Movie" Relationship="MovieResShareModel.FK_Basic_Movie_Visit_Basic_Movie" FromRole="Basic_Movie_Visit" ToRole="Basic_Movie" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_Movie_Visit_Basic_User" FromRole="Basic_Movie_Visit" ToRole="Basic_User" />
+        </EntityType>
+        <EntityType Name="Basic_User_Signin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="User" Type="Guid" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="IP" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Broswer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Major_Version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Basic_User" Relationship="MovieResShareModel.FK_Basic_User_Signin_Basic_User" FromRole="Basic_User_Signin" ToRole="Basic_User" />
+        </EntityType>
+        <Association Name="FK_Basic_Movie_Visit_Basic_Movie">
+          <End Type="MovieResShareModel.Basic_Movie" Role="Basic_Movie" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Movie_Visit" Role="Basic_Movie_Visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie_Visit">
+              <PropertyRef Name="Movie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_Movie_Visit_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_Movie_Visit" Role="Basic_Movie_Visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_Movie_Visit">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basic_User_Signin_Basic_User">
+          <End Type="MovieResShareModel.Basic_User" Role="Basic_User" Multiplicity="0..1" />
+          <End Type="MovieResShareModel.Basic_User_Signin" Role="Basic_User_Signin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basic_User_Signin">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MovieResShareModelStoreContainer" CdmEntityContainer="MovieResShareEntities">
+          <EntitySetMapping Name="Basic_Celebrity">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Celebrity">
+              <MappingFragment StoreEntitySet="Basic_Celebrity">
+                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
+                <ScalarProperty Name="Alter_Time" ColumnName="Alter_Time" />
+                <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="IMDb" ColumnName="IMDb" />
+                <ScalarProperty Name="Douban" ColumnName="Douban" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Born_Place" ColumnName="Born_Place" />
+                <ScalarProperty Name="Death_Date" ColumnName="Death_Date" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Aka_En" ColumnName="Aka_En" />
+                <ScalarProperty Name="Name_En" ColumnName="Name_En" />
+                <ScalarProperty Name="Aka" ColumnName="Aka" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Collection">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Collection">
+              <MappingFragment StoreEntitySet="Basic_Collection">
+                <ScalarProperty Name="Alter_Time" ColumnName="Alter_Time" />
+                <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Comment">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Comment">
+              <MappingFragment StoreEntitySet="Basic_Comment">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Movie">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Movie">
+              <MappingFragment StoreEntitySet="Basic_Movie">
+                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
+                <ScalarProperty Name="Alter_Time" ColumnName="Alter_Time" />
+                <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+                <ScalarProperty Name="Collect_Count" ColumnName="Collect_Count" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="IMDb" ColumnName="IMDb" />
+                <ScalarProperty Name="Douban" ColumnName="Douban" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Pubdate" ColumnName="Pubdate" />
+                <ScalarProperty Name="Episode_Count" ColumnName="Episode_Count" />
+                <ScalarProperty Name="Season_Count" ColumnName="Season_Count" />
+                <ScalarProperty Name="Current_Season" ColumnName="Current_Season" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Aka" ColumnName="Aka" />
+                <ScalarProperty Name="Title_En" ColumnName="Title_En" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Operation_Log">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Operation_Log">
+              <MappingFragment StoreEntitySet="Basic_Operation_Log">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Recommend">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Recommend">
+              <MappingFragment StoreEntitySet="Basic_Recommend">
+                <ScalarProperty Name="Sort_Number" ColumnName="Sort_Number" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Request">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Request">
+              <MappingFragment StoreEntitySet="Basic_Request">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Resource">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Resource">
+              <MappingFragment StoreEntitySet="Basic_Resource">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_User">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_User">
+              <MappingFragment StoreEntitySet="Basic_User">
+                <ScalarProperty Name="Alter_Time" ColumnName="Alter_Time" />
+                <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Celeb_Avatar">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Celeb_Avatar">
+              <MappingFragment StoreEntitySet="Step_Celeb_Avatar">
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="Large" ColumnName="Large" />
+                <ScalarProperty Name="Small" ColumnName="Small" />
+                <ScalarProperty Name="Celeb" ColumnName="Celeb" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Celeb_Work">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Celeb_Work">
+              <MappingFragment StoreEntitySet="Step_Celeb_Work">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Celeb" ColumnName="Celeb" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Movie_Country">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Movie_Country">
+              <MappingFragment StoreEntitySet="Step_Movie_Country">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Movie_Genre">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Movie_Genre">
+              <MappingFragment StoreEntitySet="Step_Movie_Genre">
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Movie_Lang">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Movie_Lang">
+              <MappingFragment StoreEntitySet="Step_Movie_Lang">
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Movie_Poster">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Movie_Poster">
+              <MappingFragment StoreEntitySet="Step_Movie_Poster">
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="Large" ColumnName="Large" />
+                <ScalarProperty Name="Small" ColumnName="Small" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step_Movie_Rating">
+            <EntityTypeMapping TypeName="MovieResShareModel.Step_Movie_Rating">
+              <MappingFragment StoreEntitySet="Step_Movie_Rating">
+                <ScalarProperty Name="Rated_Num" ColumnName="Rated_Num" />
+                <ScalarProperty Name="Star1" ColumnName="Star1" />
+                <ScalarProperty Name="Star2" ColumnName="Star2" />
+                <ScalarProperty Name="Star3" ColumnName="Star3" />
+                <ScalarProperty Name="Star4" ColumnName="Star4" />
+                <ScalarProperty Name="Star5" ColumnName="Star5" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Movie_Visit">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_Movie_Visit">
+              <MappingFragment StoreEntitySet="Basic_Movie_Visit">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Movie" ColumnName="Movie" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_User_Signin">
+            <EntityTypeMapping TypeName="MovieResShareModel.Basic_User_Signin">
+              <MappingFragment StoreEntitySet="Basic_User_Signin">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Major_Version" ColumnName="Major_Version" />
+                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
